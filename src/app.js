@@ -40,10 +40,6 @@ function doPost(event) {
     }
 }
 
-function ttt() {
-    budget.setExpense("20, яблоко")
-}
-
 function setWebhook() {
     telegram.setWebhook();
 }
