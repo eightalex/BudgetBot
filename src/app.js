@@ -25,7 +25,7 @@ function doPost(event) {
 
     if (!contents.message.entities) {
         budget.setExpense(text);
-        telegram.message(chatId, messageGenerator.getMessage('ok'));
+        telegram.message(chatId, messageGenerator.getMessage('ok') + '. Осталось ' + budget.getTodayBudget() + ' грн');
     } else {
         switch (text) {
             case '/start':
