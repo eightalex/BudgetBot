@@ -1,24 +1,20 @@
 export default class MessageHandler {
 
-    constructor() {
-
-    }
-
     /**
      * @param text - input message
-     * @return {{comment: string, value: string}}
+     * @return {{value: number, comment: string}}
      */
     prepareExpense(text) {
         const digitsRegex = /([0-9]+([.][0-9]*)?|[.][0-9]+)/;
-        const phrasesRegex = /([аАaA-яЯzZ]+ ?)+/;
+        const wordsRegex = /([аАaA-яЯzZ]+ ?)+/;
 
-        const value = digitsRegex.exec(text);
-        const comment = phrasesRegex.exec(text);
+        const valueResult = digitsRegex.exec(text);
+        const commentResult = wordsRegex.exec(text);
 
-        return {
-            value: value ? value[0] : '0',
-            comment: comment ? comment[0] : ''
-        };
+        const value = valueResult ? parseInt(valueResult[0], 10) : 0;
+        const comment = commentResult ? commentResult[0].trim() : '';
+
+        return {value, comment};
     }
 
 }

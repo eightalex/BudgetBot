@@ -45,8 +45,6 @@ export default class Budget {
      * @return {void}
      */
     setExpense(text) {
-        const expense = this.messageHandler.prepareExpense(text);
-
         const commentCell = this.sheet.getRange(
             this.getCurrentRowPosition(),
             this.commentsColumnPosition
@@ -60,7 +58,9 @@ export default class Budget {
         const currentValue = parseInt(valueCell.getDisplayValue()) || 0;
         const currentComment = commentCell.getDisplayValue() || '';
 
-        let newValue = parseInt(expense.value, 10);
+        const expense = this.messageHandler.prepareExpense(text);
+
+        let newValue = expense.value;
         let newComment = expense.comment;
 
         if (currentComment.length) {
