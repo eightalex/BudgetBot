@@ -2,6 +2,14 @@ export default class SpreadsheetAppAdapter {
 
     constructor() {
         this.sheet = null;
+
+        this.today = new Date();
+        this.today.setHours(1);
+        this.today.setMinutes(0);
+        this.today.setSeconds(0);
+
+        this.startRowPosition = 2; // first row is header
+        this.datesColumnPosition = process.env.DATES_COLUMN_POSITION;
     }
 
     /**
@@ -45,6 +53,17 @@ export default class SpreadsheetAppAdapter {
         }
 
         return false;
+    }
+
+    /**
+     * @return {number}
+     */
+    getCurrentRowPosition() {
+        return this.getRowPosition(
+            this.startRowPosition,
+            this.datesColumnPosition,
+            this.today
+        );
     }
 
 }

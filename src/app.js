@@ -34,6 +34,10 @@ function doPost(event) {
             case '/today':
                 telegram.message(chatId, 'На сегодня осталось: ' + budget.getTodayBudget() + ' грн');
                 break;
+            case '/undo':
+                budget.undo();
+                telegram.message(chatId, messageGenerator.getMessage('undo'));
+                break;
             default:
                 telegram.message(chatId, 'Всё не то. Давай по новой');
         }
