@@ -5,21 +5,15 @@ export default class Budget {
         this.messageHandler = messageHandler;
 
         this.spreadsheetAppAdapter.setActiveSheet();
-        this.sheet = this.spreadsheetAppAdapter.getSheet();
 
-        this.commentsColumnPosition = process.env.COMMENTS_COLUMN_POSITION;
-        this.valueColumnPosition = process.env.VALUE_COLUMN_POSITION;
-        this.balanceColumnPosition = process.env.BALANCE_COLUMN_POSITION;
+        this.wordsSeparator = ', ';
     }
 
     /**
      * @return {string}
      */
     getTodayBudget() {
-        return this.sheet.getRange(
-            this.spreadsheetAppAdapter.getCurrentRowPosition(),
-            this.balanceColumnPosition
-        ).getDisplayValue();
+        return this.spreadsheetAppAdapter.getCell('balance').getDisplayValue();
     }
 
     /**
@@ -27,26 +21,18 @@ export default class Budget {
      * @return {void}
      */
     setExpense(text) {
-        const commentCell = this.sheet.getRange(
-            this.spreadsheetAppAdapter.getCurrentRowPosition(),
-            this.commentsColumnPosition
-        );
-
-        const valueCell = this.sheet.getRange(
-            this.spreadsheetAppAdapter.getCurrentRowPosition(),
-            this.valueColumnPosition
-        );
+        const commentCell = this.spreadsheetAppAdapter.getCell('comments');
+        const valueCell = this.spreadsheetAppAdapter.getCell('value');
+        const expense = this.messageHandler.prepareExpense(text);
 
         const currentValue = parseInt(valueCell.getDisplayValue()) || 0;
         const currentComment = commentCell.getDisplayValue() || '';
-
-        const expense = this.messageHandler.prepareExpense(text);
 
         let newValue = expense.value;
         let newComment = expense.comment;
 
         if (currentComment.length) {
-            newComment = ', ' + newComment;
+            newComment = this.wordsSeparator + newComment;
         }
 
         commentCell.setValue(currentComment + newComment);
@@ -58,15 +44,8 @@ export default class Budget {
      * @return {void}
      */
     undo() {
-        const commentCell = this.sheet.getRange(
-            this.spreadsheetAppAdapter.getCurrentRowPosition(),
-            this.commentsColumnPosition
-        );
-
-        const valueCell = this.sheet.getRange(
-            this.spreadsheetAppAdapter.getCurrentRowPosition(),
-            this.valueColumnPosition
-        );
+        const commentCell = this.spreadsheetAppAdapter.getCell('comments');
+        const valueCell = this.spreadsheetAppAdapter.getCell('value');
 
         const currentValue = parseInt(valueCell.getDisplayValue()) || 0;
         const currentComment = commentCell.getDisplayValue() || '';

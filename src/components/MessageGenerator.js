@@ -21,7 +21,7 @@ export default class MessageGenerator {
             case 'undo':
                 return this.getUndoMessage();
             default:
-                throw new TypeError("Unresolved message type");
+                throw new TypeError('Unresolved message type');
         }
     }
 

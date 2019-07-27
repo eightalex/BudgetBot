@@ -10,6 +10,9 @@ export default class SpreadsheetAppAdapter {
 
         this.startRowPosition = 2; // first row is header
         this.datesColumnPosition = process.env.DATES_COLUMN_POSITION;
+        this.commentsColumnPosition = process.env.COMMENTS_COLUMN_POSITION;
+        this.valueColumnPosition = process.env.VALUE_COLUMN_POSITION;
+        this.balanceColumnPosition = process.env.BALANCE_COLUMN_POSITION;
     }
 
     /**
@@ -24,13 +27,6 @@ export default class SpreadsheetAppAdapter {
      */
     getActiveSheet() {
         return SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
-    }
-
-    /**
-     * @return {object}
-     */
-    getSheet() {
-        return this.sheet;
     }
 
     /**
@@ -64,6 +60,53 @@ export default class SpreadsheetAppAdapter {
             this.datesColumnPosition,
             this.today
         );
+    }
+
+    /**
+     * @param name {string}
+     * @return {object|TypeError}
+     */
+    getCell(name) {
+        switch (name) {
+            case 'comments':
+                return this.getCommentsCell();
+            case 'value':
+                return this.getValueCell();
+            case 'balance':
+                return this.getBalanceCell();
+            default:
+                throw new TypeError('Unresolved cell type');
+        }
+    }
+
+    /**
+     * @return {object}
+     */
+    getCommentsCell() {
+        return this.sheet.getRange(
+            this.getCurrentRowPosition(),
+            this.commentsColumnPosition
+        );
+    }
+
+    /**
+     * @return {object}
+     */
+    getValueCell() {
+        return this.sheet.getRange(
+            this.getCurrentRowPosition(),
+            this.valueColumnPosition
+        );
+    }
+
+    /**
+     * @return {object}
+     */
+    getBalanceCell() {
+        return this.sheet.getRange(
+            this.getCurrentRowPosition(),
+            this.balanceColumnPosition
+        )
     }
 
 }
