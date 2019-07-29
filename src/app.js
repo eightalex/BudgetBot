@@ -32,7 +32,7 @@ function doPost(event) {
                 telegram.message(chatId, 'Ну привет');
                 break;
             case '/today':
-                telegram.message(chatId, 'На сегодня осталось: ' + budget.getTodayBudget() + ' грн');
+                telegram.message(chatId, 'На сегодня осталось ' + budget.getTodayBudget() + ' грн');
                 break;
             case '/undo':
                 budget.undo();
