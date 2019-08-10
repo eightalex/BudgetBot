@@ -1,14 +1,14 @@
 import SpreadsheetAppAdapter from './components/SpreadsheetAppAdapter';
 import Budget from './components/Budget';
-import Telegram from './components/Telegram';
+import TelegramAdapter from './components/TelegramAdapter';
 import MessageHandler from './components/MessageHandler';
 import MessageGenerator from './components/MessageGenerator';
 
 const spreadsheetAppAdapter = new SpreadsheetAppAdapter();
 const messageHandler = new MessageHandler();
-const messageGenerator = new MessageGenerator();
 const budget = new Budget(spreadsheetAppAdapter, messageHandler);
-const telegram = new Telegram();
+const messageGenerator = new MessageGenerator(budget);
+const telegram = new TelegramAdapter();
 
 function sendNotify() {
     const chatList = process.env.CHAT_LIST.split(',');
@@ -25,14 +25,14 @@ function doPost(event) {
 
     if (!contents.message.entities) {
         budget.setExpense(text);
-        telegram.message(chatId, messageGenerator.getMessage('ok') + '. Осталось ' + budget.getTodayBudget() + ' грн');
+        telegram.message(chatId, messageGenerator.getMessage('ok') + '. ' + messageGenerator.getMessage('today'));
     } else {
         switch (text) {
             case '/start':
                 telegram.message(chatId, 'Ну привет');
                 break;
             case '/today':
-                telegram.message(chatId, 'На сегодня осталось ' + budget.getTodayBudget() + ' грн');
+                telegram.message(chatId, messageGenerator.getMessage('today'));
                 break;
             case '/undo':
                 budget.undo();

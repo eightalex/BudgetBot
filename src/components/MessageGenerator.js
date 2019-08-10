@@ -1,12 +1,21 @@
 export default class MessageGenerator {
 
-    constructor() {
+    constructor(budget) {
+        this.budget = budget;
+
+        this.currency = process.env.CURRENCY_ACRONYM;
+        this.wordSeparator = ' ';
+
         this.okMessages = [
             'Угу', 'Исполнено', 'Добавил', 'Оке', 'Done', 'Как скажешь', 'Ну ок', 'Ага', 'Хорошо', 'Ок'
         ];
 
         this.undoMessages = [
             'Готово', 'Сделал', 'Отменил', 'Окей', 'Done', 'Как скажешь', 'Ну ок', 'Ага', 'Хорошо', 'Ок'
+        ];
+
+        this.todayMessages = [
+            'На сегодня осталось', 'Осталось', 'Ещё есть', 'В наличии', 'Есть', 'На сегодня есть'
         ];
     }
 
@@ -20,6 +29,8 @@ export default class MessageGenerator {
                 return this.getOkMessage();
             case 'undo':
                 return this.getUndoMessage();
+            case 'today':
+                return this.getTodayMessage();
             default:
                 throw new TypeError('Unresolved message type');
         }
@@ -34,21 +45,38 @@ export default class MessageGenerator {
     }
 
     /**
+     * @param messages {array}
      * @return {string}
      */
-    getOkMessage() {
-        return this.okMessages[
-            this.getRandomIndex(this.okMessages.length)
+    getRandomMessage(messages) {
+        return messages[
+            this.getRandomIndex(messages.length)
         ];
     }
 
     /**
      * @return {string}
      */
+    getOkMessage() {
+        return this.getRandomMessage(this.okMessages);
+    }
+
+    /**
+     * @return {string}
+     */
     getUndoMessage() {
-        return this.undoMessages[
-            this.getRandomIndex(this.undoMessages.length)
-        ];
+        return this.getRandomMessage(this.undoMessages);
+    }
+
+    /**
+     * @return {string}
+     */
+    getTodayMessage() {
+        return this.getRandomMessage(this.todayMessages)
+            + this.wordSeparator
+            + this.budget.getTodayBudget()
+            + this.wordSeparator
+            + this.currency;
     }
 
 }

@@ -1,4 +1,4 @@
-export default class Telegram {
+export default class TelegramAdapter {
 
     constructor() {
         this.token = process.env.TELEGRAM_TOKEN;
