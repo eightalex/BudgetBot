@@ -18,9 +18,10 @@ export default class TelegramAdapter {
     /**
      * @param chat_id {string|number}
      * @param text {string}
+     * @param options {object}
      */
-    message(chat_id, text) {
-        this.post('sendMessage', {chat_id, text});
+    message(chat_id, text, options = {}) {
+        this.post('sendMessage', Object.assign({chat_id, text}, options));
     }
 
     /**
