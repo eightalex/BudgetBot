@@ -22,17 +22,24 @@ function doPost(event) {
     const contents = JSON.parse(event.postData.contents);
     const chatId = contents.message.chat.id;
     const text = contents.message.text;
+    const commandRegex = /^\/[a-z]+/;
 
     if (!contents.message.entities) {
-        budget.setExpense(text);
+        budget.setTransaction(text, {operation: process.env.OPERATION_EXPENSE});
         telegram.message(chatId, messageGenerator.getMessage('ok') + '. ' + messageGenerator.getMessage('today'));
     } else {
-        switch (text) {
+        const command = commandRegex.exec(text)[0];
+
+        switch (command) {
             case '/start':
                 telegram.message(chatId, 'Ну привет');
                 break;
             case '/today':
                 telegram.message(chatId, messageGenerator.getMessage('today'));
+                break;
+            case '/income':
+                budget.setTransaction(text, {operation: process.env.OPERATION_INCOME});
+                telegram.message(chatId, messageGenerator.getMessage('ok'));
                 break;
             case '/undo':
                 budget.undo();

@@ -3,10 +3,9 @@ export default class Budget {
     constructor(spreadsheetAppAdapter, messageHandler) {
         this.spreadsheetAppAdapter = spreadsheetAppAdapter;
         this.messageHandler = messageHandler;
+        this.wordSeparator = ', ';
 
         this.spreadsheetAppAdapter.setActiveSheet();
-
-        this.wordsSeparator = ', ';
     }
 
     /**
@@ -17,26 +16,28 @@ export default class Budget {
     }
 
     /**
-     * @param text - input message
+     * @param inputMessage {string}
+     * @param options {object}
      * @return {void}
      */
-    setExpense(text) {
+    setTransaction(inputMessage, options) {
         const commentCell = this.spreadsheetAppAdapter.getCell('comments');
         const valueCell = this.spreadsheetAppAdapter.getCell('value');
-        const expense = this.messageHandler.prepareExpense(text);
+        const isIncome = options.operation === process.env.OPERATION_INCOME;
+        const transaction = this.messageHandler.prepareTransaction(inputMessage, isIncome);
 
         const currentValue = parseInt(valueCell.getDisplayValue()) || 0;
         const currentComment = commentCell.getDisplayValue() || '';
 
-        let newValue = expense.value;
-        let newComment = expense.comment;
+        let inputValue = transaction.value;
+        let inputComment = transaction.comment;
 
         if (currentComment.length) {
-            newComment = this.wordsSeparator + newComment;
+            inputComment = this.wordSeparator + inputComment;
         }
 
-        commentCell.setValue(currentComment + newComment);
-        valueCell.setValue(currentValue + newValue);
+        valueCell.setValue(currentValue + inputValue);
+        commentCell.setValue(currentComment + inputComment);
     }
 
     /**
