@@ -1,7 +1,8 @@
 export default class MessageHandler {
 
     constructor() {
-        this.wordSeparator = ', ';
+        this.transactionSeparator = ', ';
+        this.wordSeparator = ' ';
         this.commandRegex = /^\/[a-z]+/;
         this.digitsRegex = /(-?[0-9]+([.][0-9]*)?|[.][0-9]+)/;
         this.wordsRegex = /([аАaA-яЯzZ]+ ?)+/;
@@ -40,7 +41,15 @@ export default class MessageHandler {
      * @return {string}
      */
     prepareComment(inputComment, inputValue) {
-        return inputComment ? inputComment.trim() + ' (' + inputValue + ')' : '';
+        let comment = inputComment.trim();
+
+        if (!comment) {
+            return '';
+        }
+
+        comment = comment.charAt(0).toUpperCase() + comment.slice(1); // capitalize
+
+        return comment + this.wordSeparator + '(' + inputValue + ')';
     }
 
     /**
@@ -65,7 +74,7 @@ export default class MessageHandler {
      * @return {{value: number, comment: string}}
      */
     prepareUndo(currentValue, currentComment) {
-        let comments = currentComment.split(this.wordSeparator);
+        let comments = currentComment.split(this.transactionSeparator);
 
         const lastComment = comments.pop();
         const valueResult = this.digitsRegex.exec(lastComment);
@@ -73,7 +82,7 @@ export default class MessageHandler {
 
         return {
             value: currentValue - previousValue,
-            comment: comments.join(this.wordSeparator)
+            comment: comments.join(this.transactionSeparator)
         };
     }
 
