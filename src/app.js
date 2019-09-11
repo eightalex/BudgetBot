@@ -3,9 +3,11 @@ import Budget from './components/Budget';
 import TelegramAdapter from './components/TelegramAdapter';
 import MessageHandler from './components/MessageHandler';
 import MessageGenerator from './components/MessageGenerator';
+import NumberHandler from './components/NumberHandler';
 
 const spreadsheetAppAdapter = new SpreadsheetAppAdapter();
-const messageHandler = new MessageHandler();
+const numberHandler = new NumberHandler();
+const messageHandler = new MessageHandler(numberHandler);
 const budget = new Budget(spreadsheetAppAdapter, messageHandler);
 const messageGenerator = new MessageGenerator(budget);
 const telegram = new TelegramAdapter();

@@ -1,6 +1,7 @@
 export default class MessageHandler {
 
-    constructor() {
+    constructor(numberHandler) {
+        this.numberHandler = numberHandler;
         this.transactionSeparator = ', ';
         this.wordSeparator = ' ';
         this.commandRegex = /^\/[a-z]+/;
@@ -14,25 +15,6 @@ export default class MessageHandler {
      */
     removeCommand(inputMessage) {
         return inputMessage.replace(this.commandRegex, '');
-    }
-
-    /**
-     * @param inputValue {string}
-     * @param makeNegative {boolean}
-     * @return {number}
-     */
-    prepareValue(inputValue, makeNegative = false) {
-        const value = parseFloat(inputValue);
-
-        if (!value) {
-            return 0;
-        }
-
-        if (makeNegative) {
-            return value - (value * 2);
-        } else {
-            return value;
-        }
     }
 
     /**
@@ -62,7 +44,7 @@ export default class MessageHandler {
         const valueResult = this.digitsRegex.exec(message);
         const commentResult = this.wordsRegex.exec(message);
 
-        const value = this.prepareValue(valueResult[0], isIncome);
+        const value = this.numberHandler.prepareValue(valueResult[0], isIncome);
         const comment = this.prepareComment(commentResult[0], value);
 
         return {value, comment};
@@ -78,7 +60,7 @@ export default class MessageHandler {
 
         const lastComment = comments.pop();
         const valueResult = this.digitsRegex.exec(lastComment);
-        const previousValue = this.prepareValue(valueResult[0]);
+        const previousValue = this.numberHandler.prepareValue(valueResult[0]);
 
         return {
             value: currentValue - previousValue,
