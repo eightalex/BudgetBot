@@ -1,9 +1,5 @@
 export default class NumberHandler {
 
-    constructor() {
-
-    }
-
     /**
      * @param number {number}
      * @return {number}
@@ -32,7 +28,7 @@ export default class NumberHandler {
             return 0;
         }
 
-        return makeNegative ? this.makeNegative(number) : number;
+        return makeNegative ? this.makeNegative(number) : this.makePositive(number);
     }
 
 }

@@ -4,6 +4,10 @@ import TelegramAdapter from './components/TelegramAdapter';
 import MessageHandler from './components/MessageHandler';
 import MessageGenerator from './components/MessageGenerator';
 import NumberHandler from './components/NumberHandler';
+import MonoAdapter from './components/MonoAdapter';
+import RequestHandler from './components/RequestHandler';
+import MonoDataHandler from './components/MonoDataHandler';
+import TelegramDataHandler from './components/TelegramDataHandler';
 
 const spreadsheetAppAdapter = new SpreadsheetAppAdapter();
 const numberHandler = new NumberHandler();
@@ -11,6 +15,10 @@ const messageHandler = new MessageHandler(numberHandler);
 const budget = new Budget(spreadsheetAppAdapter, messageHandler);
 const messageGenerator = new MessageGenerator(budget);
 const telegram = new TelegramAdapter();
+const mono = new MonoAdapter();
+const monoDataHandler = new MonoDataHandler(budget, numberHandler, messageHandler);
+const telegramDataHandler = new TelegramDataHandler(telegram, budget, messageGenerator, messageHandler);
+const requestHandler = new RequestHandler(monoDataHandler, telegramDataHandler);
 
 function sendNotify() {
     const chatList = process.env.CHAT_LIST.split(',');
@@ -21,38 +29,10 @@ function sendNotify() {
 }
 
 function doPost(event) {
-    const contents = JSON.parse(event.postData.contents);
-    const chatId = contents.message.chat.id;
-    const text = contents.message.text;
-    const commandRegex = /^\/[a-z]+/;
-
-    if (!contents.message.entities) {
-        budget.setTransaction(text, {operation: process.env.OPERATION_EXPENSE});
-        telegram.message(chatId, messageGenerator.getMessage('ok') + '. ' + messageGenerator.getMessage('today'));
-    } else {
-        const command = commandRegex.exec(text)[0];
-
-        switch (command) {
-            case '/start':
-                telegram.message(chatId, 'Ну привет');
-                break;
-            case '/today':
-                telegram.message(chatId, messageGenerator.getMessage('today'));
-                break;
-            case '/income':
-                budget.setTransaction(text, {operation: process.env.OPERATION_INCOME});
-                telegram.message(chatId, messageGenerator.getMessage('ok'));
-                break;
-            case '/undo':
-                budget.undo();
-                telegram.message(chatId, messageGenerator.getMessage('undo'));
-                break;
-            default:
-                telegram.message(chatId, 'Всё не то. Давай по новой');
-        }
-    }
+    requestHandler.handlePost(event.postData.contents);
 }
 
 function setWebhook() {
     telegram.setWebhook();
+    mono.setWebhook();
 }

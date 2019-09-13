@@ -16,15 +16,12 @@ export default class Budget {
     }
 
     /**
-     * @param inputMessage {string}
-     * @param options {object}
+     * @param transaction {object}
      * @return {void}
      */
-    setTransaction(inputMessage, options) {
+    setTransaction(transaction) {
         const commentCell = this.spreadsheetAppAdapter.getCell('comments');
         const valueCell = this.spreadsheetAppAdapter.getCell('value');
-        const isIncome = options.operation === process.env.OPERATION_INCOME;
-        const transaction = this.messageHandler.prepareTransaction(inputMessage, isIncome);
 
         const currentValue = parseInt(valueCell.getDisplayValue()) || 0;
         const currentComment = commentCell.getDisplayValue() || '';
