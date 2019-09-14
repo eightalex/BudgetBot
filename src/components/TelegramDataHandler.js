@@ -22,9 +22,8 @@ export default class TelegramDataHandler {
 
     handleMessage() {
         const transaction = this.messageHandler.prepareTransaction(this.text, false);
-
         this.budget.setTransaction(transaction);
-        this.telegram.message(this.chatId, this.messageGenerator.getMessage('ok') + '. ' + this.messageGenerator.getMessage('today'));
+        this.telegram.message(this.chatId, this.messageGenerator.getMessage('expense'));
     }
 
     handleCommand() {
@@ -49,7 +48,7 @@ export default class TelegramDataHandler {
     }
 
     handleStart() {
-        this.telegram.message(this.chatId, 'Ну привет');
+        this.telegram.message(this.chatId, this.messageGenerator.getMessage('start'));
     }
 
     handleToday() {
@@ -68,7 +67,7 @@ export default class TelegramDataHandler {
     }
 
     handleCommandException() {
-        this.telegram.message(this.chatId, 'Всё не то. Давай по новой');
+        this.telegram.message(this.chatId, this.messageGenerator.getMessage('commandException'));
         throw new Error('Something went wrong');
     }
 

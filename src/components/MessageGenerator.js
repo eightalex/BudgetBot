@@ -5,6 +5,15 @@ export default class MessageGenerator {
 
         this.currency = process.env.CURRENCY_ACRONYM;
         this.wordSeparator = ' ';
+        this.sentenceSeparator = '. ';
+
+        this.startMessages = [
+            'Ну привет'
+        ];
+
+        this.todayBudgetMessages = [
+            'Бюджет на сегодня:'
+        ];
 
         this.okMessages = [
             'Угу', 'Исполнено', 'Добавил', 'Оке', 'Done', 'Как скажешь', 'Ну ок', 'Ага', 'Хорошо', 'Ок'
@@ -15,7 +24,11 @@ export default class MessageGenerator {
         ];
 
         this.todayMessages = [
-            'На сегодня осталось', 'Осталось', 'Ещё есть', 'В наличии', 'Есть', 'На сегодня есть'
+            'На сегодня осталось', 'Осталось', 'На сегодня ещё есть'
+        ];
+
+        this.commandExceptionMessages = [
+            'Всё не то. Давай по новой'
         ];
     }
 
@@ -25,12 +38,20 @@ export default class MessageGenerator {
      */
     getMessage(type) {
         switch (type) {
+            case 'start':
+                return this.getStartMessage();
+            case 'todayBudget':
+                return this.getTodayBudgetMessage();
             case 'ok':
                 return this.getOkMessage();
             case 'undo':
                 return this.getUndoMessage();
             case 'today':
                 return this.getTodayMessage();
+            case 'expense':
+                return this.getExpenseMessage();
+            case 'commandException':
+                return this.getCommandException();
             default:
                 throw new TypeError('Unresolved message type');
         }
@@ -57,6 +78,24 @@ export default class MessageGenerator {
     /**
      * @return {string}
      */
+    getStartMessage() {
+        return this.getRandomMessage(this.startMessages);
+    }
+
+    /**
+     * @return {string}
+     */
+    getTodayBudgetMessage() {
+        return this.getRandomMessage(this.todayBudgetMessages)
+            + this.wordSeparator
+            + this.budget.getTodayBudget()
+            + this.wordSeparator
+            + this.currency;
+    }
+
+    /**
+     * @return {string}
+     */
     getOkMessage() {
         return this.getRandomMessage(this.okMessages);
     }
@@ -65,7 +104,9 @@ export default class MessageGenerator {
      * @return {string}
      */
     getUndoMessage() {
-        return this.getRandomMessage(this.undoMessages);
+        return this.getRandomMessage(this.undoMessages)
+            + this.sentenceSeparator
+            + this.getTodayMessage();
     }
 
     /**
@@ -77,6 +118,22 @@ export default class MessageGenerator {
             + this.budget.getTodayBudget()
             + this.wordSeparator
             + this.currency;
+    }
+
+    /**
+     * @return {string}
+     */
+    getExpenseMessage() {
+        return this.getOkMessage()
+            + this.sentenceSeparator
+            + this.getTodayMessage();
+    }
+
+    /**
+     * @return {string}
+     */
+    getCommandException() {
+        return this.getRandomMessage(this.commandExceptionMessages);
     }
 
 }

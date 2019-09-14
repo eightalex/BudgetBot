@@ -24,7 +24,7 @@ function sendNotify() {
     const chatList = process.env.CHAT_LIST.split(',');
 
     for (let i = 0; i < chatList.length; i++) {
-        telegram.message(chatList[i], 'Бюджет на сегодня: ' + budget.getTodayBudget() + ' грн');
+        telegram.message(chatList[i], messageGenerator.getMessage('todayBudget'));
     }
 }
 
