@@ -17,6 +17,14 @@ export default class NumberHandler {
     }
 
     /**
+     * @param amount {number}
+     * @return {number}
+     */
+    prepareMonoAmount(amount) {
+        return Math.ceil(amount / 100);
+    }
+
+    /**
      * @param value {string}
      * @param makeNegative {boolean}
      * @return {number}

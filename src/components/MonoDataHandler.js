@@ -7,8 +7,9 @@ export default class MonoDataHandler {
     }
 
     handle(contents) {
-        const isIncome = contents.data.statementItem.amount > 0;
-        const value = this.numberHandler.prepareValue(contents.data.statementItem.amount, isIncome);
+        const amount = this.numberHandler.prepareMonoAmount(contents.data.statementItem.amount);
+        const isIncome = amount > 0;
+        const value = this.numberHandler.prepareValue(amount, isIncome);
         const comment = this.messageHandler.prepareComment(contents.data.statementItem.description, value);
 
         this.budget.setTransaction({comment, value});

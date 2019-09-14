@@ -7,6 +7,7 @@ export default class MessageHandler {
         this.commandRegex = /^\/[a-z]+/;
         this.digitsRegex = /(-?[0-9]+([.][0-9]*)?|[.][0-9]+)/;
         this.wordsRegex = /([аАaA-яЯzZ]+ ?)+/;
+        this.newLineRegex = /\r?\n|\r/;
     }
 
     /**
@@ -19,11 +20,19 @@ export default class MessageHandler {
 
     /**
      * @param inputComment {string}
+     * @return {string}
+     */
+    removeNewLine(inputComment) {
+        return inputComment.replace(this.newLineRegex, '');
+    }
+
+    /**
+     * @param inputComment {string}
      * @param inputValue {number}
      * @return {string}
      */
     prepareComment(inputComment, inputValue) {
-        let comment = inputComment.trim();
+        let comment = this.removeNewLine(inputComment.trim());
 
         if (!comment) {
             return '';
