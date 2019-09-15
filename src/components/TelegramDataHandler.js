@@ -1,5 +1,11 @@
 export default class TelegramDataHandler {
 
+    /**
+     * @param {TelegramAdapter} telegram
+     * @param {Budget} budget
+     * @param {MessageGenerator} messageGenerator
+     * @param {MessageHandler} messageHandler
+     */
     constructor(telegram, budget, messageGenerator, messageHandler) {
         this.telegram = telegram;
         this.budget = budget;
@@ -9,6 +15,9 @@ export default class TelegramDataHandler {
         this.commandRegex = /^\/[a-z]+/;
     }
 
+    /**
+     * @param {json} contents
+     */
     handle(contents) {
         this.chatId = contents.message.chat.id;
         this.text = contents.message.text;
@@ -20,12 +29,18 @@ export default class TelegramDataHandler {
         }
     }
 
+    /**
+     * @return {void}
+     */
     handleMessage() {
         const transaction = this.messageHandler.prepareTransaction(this.text, false);
         this.budget.setTransaction(transaction);
         this.telegram.message(this.chatId, this.messageGenerator.getMessage('expense'));
     }
 
+    /**
+     * @return {void}
+     */
     handleCommand() {
         const command = this.commandRegex.exec(this.text)[0];
 
@@ -47,25 +62,40 @@ export default class TelegramDataHandler {
         }
     }
 
+    /**
+     * @return {void}
+     */
     handleStart() {
         this.telegram.message(this.chatId, this.messageGenerator.getMessage('start'));
     }
 
+    /**
+     * @return {void}
+     */
     handleToday() {
         this.telegram.message(this.chatId, this.messageGenerator.getMessage('today'));
     }
 
+    /**
+     * @return {void}
+     */
     handleIncome() {
         const transaction = this.messageHandler.prepareTransaction(this.text, true);
         this.budget.setTransaction(transaction);
         this.telegram.message(this.chatId, this.messageGenerator.getMessage('ok'));
     }
 
+    /**
+     * @return {void}
+     */
     handleUndo() {
         this.budget.undo();
         this.telegram.message(this.chatId, this.messageGenerator.getMessage('undo'));
     }
 
+    /**
+     * @return {void}
+     */
     handleCommandException() {
         this.telegram.message(this.chatId, this.messageGenerator.getMessage('commandException'));
         throw new Error('Something went wrong');

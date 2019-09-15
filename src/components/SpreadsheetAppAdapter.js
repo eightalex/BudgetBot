@@ -30,9 +30,9 @@ export default class SpreadsheetAppAdapter {
     }
 
     /**
-     * @param startRow {number}
-     * @param column {number}
-     * @param searchString {string}
+     * @param {number} startRow
+     * @param {number} column
+     * @param {string} searchString
      * @return {number|boolean}
      */
     getRowPosition(startRow, column, searchString) {
@@ -63,7 +63,7 @@ export default class SpreadsheetAppAdapter {
     }
 
     /**
-     * @param name {string}
+     * @param {string} name
      * @return {object|TypeError}
      */
     getCell(name) {

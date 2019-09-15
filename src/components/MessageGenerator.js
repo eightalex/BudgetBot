@@ -1,5 +1,8 @@
 export default class MessageGenerator {
 
+    /**
+     * @param {Budget} budget
+     */
     constructor(budget) {
         this.budget = budget;
 
@@ -33,7 +36,7 @@ export default class MessageGenerator {
     }
 
     /**
-     * @param type {string}
+     * @param {string} type
      * @return {string}
      */
     getMessage(type) {
@@ -58,7 +61,7 @@ export default class MessageGenerator {
     }
 
     /**
-     * @param length {number}
+     * @param {number} length
      * @return {number}
      */
     getRandomIndex(length) {
@@ -66,7 +69,7 @@ export default class MessageGenerator {
     }
 
     /**
-     * @param messages {array}
+     * @param {array} messages
      * @return {string}
      */
     getRandomMessage(messages) {

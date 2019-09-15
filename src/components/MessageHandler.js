@@ -1,5 +1,8 @@
 export default class MessageHandler {
 
+    /**
+     * @param {NumberHandler} numberHandler
+     */
     constructor(numberHandler) {
         this.numberHandler = numberHandler;
         this.transactionSeparator = ', ';
@@ -11,7 +14,7 @@ export default class MessageHandler {
     }
 
     /**
-     * @param inputMessage {string}
+     * @param {string} inputMessage
      * @return {string}
      */
     removeCommand(inputMessage) {
@@ -19,7 +22,7 @@ export default class MessageHandler {
     }
 
     /**
-     * @param inputComment {string}
+     * @param {string} inputComment
      * @return {string}
      */
     removeNewLine(inputComment) {
@@ -27,8 +30,8 @@ export default class MessageHandler {
     }
 
     /**
-     * @param inputComment {string}
-     * @param inputValue {number}
+     * @param {string} inputComment
+     * @param {number} inputValue
      * @return {string}
      */
     prepareComment(inputComment, inputValue) {
@@ -44,8 +47,8 @@ export default class MessageHandler {
     }
 
     /**
-     * @param inputMessage {string}
-     * @param isIncome {boolean}
+     * @param {string} inputMessage
+     * @param {boolean} isIncome
      * @return {{value: number, comment: string}}
      */
     prepareTransaction(inputMessage, isIncome) {
@@ -60,8 +63,8 @@ export default class MessageHandler {
     }
 
     /**
-     * @param currentValue {number}
-     * @param currentComment {string}
+     * @param {number} currentValue
+     * @param {string} currentComment
      * @return {{value: number, comment: string}}
      */
     prepareUndo(currentValue, currentComment) {

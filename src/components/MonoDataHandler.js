@@ -1,5 +1,10 @@
 export default class MonoDataHandler {
 
+    /**
+     * @param {Budget} budget
+     * @param {NumberHandler} numberHandler
+     * @param {MessageHandler} messageHandler
+     */
     constructor(budget, numberHandler, messageHandler) {
         this.budget = budget;
         this.numberHandler = numberHandler;

@@ -1,5 +1,9 @@
 export default class Budget {
 
+    /**
+     * @param {SpreadsheetAppAdapter} spreadsheetAppAdapter
+     * @param {MessageHandler} messageHandler
+     */
     constructor(spreadsheetAppAdapter, messageHandler) {
         this.spreadsheetAppAdapter = spreadsheetAppAdapter;
         this.messageHandler = messageHandler;
@@ -16,7 +20,7 @@ export default class Budget {
     }
 
     /**
-     * @param transaction {object}
+     * @param {object} transaction
      * @return {void}
      */
     setTransaction(transaction) {

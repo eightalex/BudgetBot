@@ -7,8 +7,8 @@ export default class TelegramAdapter {
     }
 
     /**
-     * @param method {string}
-     * @param params {object}
+     * @param {string} method
+     * @param {object} params
      * @return {Promise<Response>}
      */
     post(method, params) {
@@ -17,9 +17,9 @@ export default class TelegramAdapter {
     }
 
     /**
-     * @param chat_id {string|number}
-     * @param text {string}
-     * @param options {object}
+     * @param {string|number} chat_id
+     * @param {string} text
+     * @param {object} options
      */
     message(chat_id, text, options = {}) {
         this.post('sendMessage', Object.assign({chat_id, text}, options));

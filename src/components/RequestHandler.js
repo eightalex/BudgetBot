@@ -1,5 +1,9 @@
 export default class RequestHandler {
 
+    /**
+     * @param {MonoDataHandler} monoDataHandler
+     * @param {TelegramDataHandler} telegramDataHandler
+     */
     constructor(monoDataHandler, telegramDataHandler) {
         this.monoDataHandler = monoDataHandler;
         this.telegramDataHandler = telegramDataHandler;
@@ -10,6 +14,9 @@ export default class RequestHandler {
         };
     }
 
+    /**
+     * @param {string} contents
+     */
     handlePost(contents) {
         contents = JSON.parse(contents);
 
@@ -25,6 +32,11 @@ export default class RequestHandler {
         }
     }
 
+    /**
+     * @param {array} comparedFields
+     * @param {json} data
+     * @return {boolean}
+     */
     isEqualFields(comparedFields, data) {
         const dataFields = Object.keys(data);
         return comparedFields.every((field, index) => dataFields[index] === field);

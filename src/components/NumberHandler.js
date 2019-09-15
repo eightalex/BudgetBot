@@ -1,7 +1,7 @@
 export default class NumberHandler {
 
     /**
-     * @param number {number}
+     * @param {number} number
      * @return {number}
      */
     makePositive(number) {
@@ -9,7 +9,7 @@ export default class NumberHandler {
     }
 
     /**
-     * @param number {number}
+     * @param {number} number
      * @return {number}
      */
     makeNegative(number) {
@@ -17,7 +17,7 @@ export default class NumberHandler {
     }
 
     /**
-     * @param amount {number}
+     * @param {number} amount
      * @return {number}
      */
     prepareMonoAmount(amount) {
@@ -25,8 +25,8 @@ export default class NumberHandler {
     }
 
     /**
-     * @param value {string}
-     * @param makeNegative {boolean}
+     * @param {string} value
+     * @param {boolean} makeNegative
      * @return {number}
      */
     prepareValue(value, makeNegative = false) {
