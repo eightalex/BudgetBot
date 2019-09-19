@@ -26,7 +26,7 @@ export default class MessageHandler {
      * @return {string}
      */
     removeNewLine(inputComment) {
-        return inputComment.replace(this.newLineRegex, '');
+        return inputComment.replace(this.newLineRegex, this.wordSeparator);
     }
 
     /**
