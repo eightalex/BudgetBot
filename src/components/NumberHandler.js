@@ -25,7 +25,7 @@ export default class NumberHandler {
     }
 
     /**
-     * @param {string} value
+     * @param {string|number} value
      * @param {boolean} makeNegative
      * @return {number}
      */

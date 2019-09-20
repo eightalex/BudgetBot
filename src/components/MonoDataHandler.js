@@ -11,6 +11,9 @@ export default class MonoDataHandler {
         this.messageHandler = messageHandler;
     }
 
+    /**
+     * @param {json} contents
+     */
     handle(contents) {
         const amount = this.numberHandler.prepareMonoAmount(contents.data.statementItem.amount);
         const isIncome = amount > 0;
