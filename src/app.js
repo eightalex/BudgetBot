@@ -16,16 +16,12 @@ const budget = new Budget(spreadsheetAppAdapter, messageHandler);
 const messageGenerator = new MessageGenerator(budget);
 const telegram = new TelegramAdapter();
 const mono = new MonoAdapter();
-const monoDataHandler = new MonoDataHandler(budget, numberHandler, messageHandler);
+const monoDataHandler = new MonoDataHandler(budget, telegram, numberHandler, messageHandler, messageGenerator);
 const telegramDataHandler = new TelegramDataHandler(telegram, budget, messageGenerator, messageHandler);
 const requestHandler = new RequestHandler(monoDataHandler, telegramDataHandler);
 
 function sendNotify() {
-    const chatList = process.env.CHAT_LIST.split(',');
-
-    for (let i = 0; i < chatList.length; i++) {
-        telegram.message(chatList[i], messageGenerator.getMessage('todayBudget'));
-    }
+    telegram.message(process.env.CHAT_ID, messageGenerator.getMessage('todayBudget'));
 }
 
 function doPost(event) {
