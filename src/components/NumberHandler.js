@@ -1,3 +1,5 @@
+import {REGEX_COMMAS} from '../constants/Regex';
+
 export default class NumberHandler {
 
     /**
@@ -30,13 +32,16 @@ export default class NumberHandler {
      * @return {number}
      */
     prepareValue(value, makeNegative = false) {
-        const number = parseFloat(value);
-
-        if (!number) {
-            return 0;
+        if (!value) {
+            return 0; // TODO make error
         }
 
-        return makeNegative ? this.makeNegative(number) : this.makePositive(number);
+        value = Number.isFinite(value) ? value : value.replace(REGEX_COMMAS, '');
+        value = parseFloat(value);
+
+        return makeNegative
+            ? this.makeNegative(value)
+            : this.makePositive(value);
     }
 
 }
