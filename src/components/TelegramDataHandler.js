@@ -66,7 +66,7 @@ export default class TelegramDataHandler {
      * @return {void}
      */
     handleStart() {
-        this.telegram.message(this.chatId, this.messageGenerator.getMessage('start'));
+        this.telegram.message(this.chatId, this.messageGenerator.getMessage('start', {chatId: this.chatId}));
     }
 
     /**

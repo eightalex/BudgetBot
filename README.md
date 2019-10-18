@@ -36,6 +36,7 @@ function setWebhook() {
 }
 ```
 8. Publish it again
-9. Run setWebhook function (only once)
-10. Setup daily trigger (e.g. at morning) in Google Scripts for sendNotify function
-11. Done! You're breathtaking!
+9. For get chatId set /start command to bot
+10. Run setWebhook function (only once)
+11. Setup daily trigger (e.g. at morning) in Google Scripts for sendNotify function
+12. Done! You're breathtaking!

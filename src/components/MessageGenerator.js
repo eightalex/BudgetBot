@@ -14,6 +14,10 @@ export default class MessageGenerator {
             'Ну привет'
         ];
 
+        this.chadIdMessages = [
+            'Ваш chat id:'
+        ];
+
         this.todayBudgetMessages = [
             'Бюджет на сегодня:'
         ];
@@ -37,12 +41,13 @@ export default class MessageGenerator {
 
     /**
      * @param {string} type
+     * @param {object} options
      * @return {string}
      */
-    getMessage(type) {
+    getMessage(type, options = {}) {
         switch (type) {
             case 'start':
-                return this.getStartMessage();
+                return this.getStartMessage(options);
             case 'todayBudget':
                 return this.getTodayBudgetMessage();
             case 'ok':
@@ -81,8 +86,22 @@ export default class MessageGenerator {
     /**
      * @return {string}
      */
-    getStartMessage() {
-        return this.getRandomMessage(this.startMessages);
+    getChadIdMessage() {
+        return this.getRandomMessage(this.chadIdMessages);
+    }
+
+    /**
+     * @param {object} options
+     * @return {string}
+     */
+    getStartMessage(options) {
+        const chatId = options.hasOwnProperty('chatId') ? options.chatId : '0';
+
+        return this.getRandomMessage(this.startMessages)
+            + this.sentenceSeparator
+            + this.getChadIdMessage()
+            + this.wordSeparator
+            + chatId;
     }
 
     /**
