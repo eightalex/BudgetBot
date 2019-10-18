@@ -1,3 +1,5 @@
+import {REGEX_COMMAND, REGEX_DIGITS, REGEX_NEW_LINE, REGEX_WORDS} from '../constants/Regex';
+
 export default class MessageHandler {
 
     /**
@@ -7,10 +9,6 @@ export default class MessageHandler {
         this.numberHandler = numberHandler;
         this.transactionSeparator = ', ';
         this.wordSeparator = ' ';
-        this.commandRegex = /^\/[a-z]+/;
-        this.digitsRegex = /(-?[0-9]+([.][0-9]*)?|[.][0-9]+)/;
-        this.wordsRegex = /([аАaA-яЯzZ]+ ?)+/;
-        this.newLineRegex = /\r?\n|\r/;
     }
 
     /**
@@ -18,7 +16,7 @@ export default class MessageHandler {
      * @return {string}
      */
     removeCommand(inputMessage) {
-        return inputMessage.replace(this.commandRegex, '');
+        return inputMessage.replace(REGEX_COMMAND, '');
     }
 
     /**
@@ -26,7 +24,7 @@ export default class MessageHandler {
      * @return {string}
      */
     removeNewLine(inputComment) {
-        return inputComment.replace(this.newLineRegex, this.wordSeparator);
+        return inputComment.replace(REGEX_NEW_LINE, this.wordSeparator);
     }
 
     /**
@@ -53,8 +51,8 @@ export default class MessageHandler {
      */
     prepareTransaction(inputMessage, isIncome) {
         const message = this.removeCommand(inputMessage);
-        const valueResult = this.digitsRegex.exec(message);
-        const commentResult = this.wordsRegex.exec(message);
+        const valueResult = REGEX_DIGITS.exec(message);
+        const commentResult = REGEX_WORDS.exec(message);
 
         const value = this.numberHandler.prepareValue(valueResult[0], isIncome);
         const comment = this.prepareComment(commentResult[0], value);
@@ -71,7 +69,7 @@ export default class MessageHandler {
         let comments = currentComment.split(this.transactionSeparator);
 
         const lastComment = comments.pop();
-        const valueResult = this.digitsRegex.exec(lastComment);
+        const valueResult = REGEX_DIGITS.exec(lastComment);
         const previousValue = this.numberHandler.prepareValue(valueResult[0]);
 
         return {

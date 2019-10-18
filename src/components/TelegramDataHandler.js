@@ -1,3 +1,5 @@
+import {REGEX_COMMAND} from '../constants/Regex';
+
 export default class TelegramDataHandler {
 
     /**
@@ -11,8 +13,6 @@ export default class TelegramDataHandler {
         this.budget = budget;
         this.messageGenerator = messageGenerator;
         this.messageHandler = messageHandler;
-
-        this.commandRegex = /^\/[a-z]+/;
     }
 
     /**
@@ -42,7 +42,7 @@ export default class TelegramDataHandler {
      * @return {void}
      */
     handleCommand() {
-        const command = this.commandRegex.exec(this.text)[0];
+        const command = REGEX_COMMAND.exec(this.text)[0]; // TODO add getCommand()
 
         switch (command) {
             case '/start':
