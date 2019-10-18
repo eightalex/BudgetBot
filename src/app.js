@@ -20,15 +20,15 @@ const monoDataHandler = new MonoDataHandler(budget, telegram, numberHandler, mes
 const telegramDataHandler = new TelegramDataHandler(telegram, budget, messageGenerator, messageHandler);
 const requestHandler = new RequestHandler(monoDataHandler, telegramDataHandler);
 
-function sendNotify() {
+export function sendNotify() {
     telegram.message(process.env.CHAT_ID, messageGenerator.getMessage('todayBudget'));
 }
 
-function doPost(event) {
+export function doPost(event) {
     requestHandler.handlePost(event.postData.contents);
 }
 
-function setWebhook() {
+export function setWebhook() {
     telegram.setWebhook();
     mono.setWebhook();
 }
