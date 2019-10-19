@@ -3,6 +3,22 @@ import {REGEX_COMMAS} from '../constants/Regex';
 export default class NumberHandler {
 
     /**
+     * @param {number} value
+     * @returns {boolean}
+     */
+    isFinite(value) {
+        if (typeof value !== 'number') {
+            return false;
+        }
+
+        if (value !== value || value === Infinity || value === -Infinity) {
+            return false;
+        }
+
+        return true;
+    };
+
+    /**
      * @param {number} number
      * @return {number}
      */
@@ -36,7 +52,7 @@ export default class NumberHandler {
             return 0; // TODO make error
         }
 
-        value = Number.isFinite(value) ? value : value.replace(REGEX_COMMAS, '');
+        value = this.isFinite(value) ? value : value.replace(REGEX_COMMAS, '');
         value = parseFloat(value);
 
         return makeNegative
