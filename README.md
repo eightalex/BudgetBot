@@ -14,29 +14,15 @@ Please follow the instructions for best experience
     3. Copy link form "Current web app URL" field. This is your GOOGLE_APP_URL
 4. Open telegram and make new bot by @BotFather
     1. Copy token
-    2. Provide commands /today and /undo
+    2. Provide commands `/today` and `/undo`
 5. Clone project `git clone https://github.com/eightalex/BudgetBot.git`
     1. Go to dir `cd BudgetBot/`
     2. Make a copy of .env.sample file `cp .env.sample .env` and setup it
     3. Run `npm install`
     4. Run `npm run build`
 6. Copy code from dist/bundle.js and paste it to your published project on Google Scripts
-7. Provide next functions at bottom of code:
-```
-function sendNotify() {
-  budgetBot.sendNotify();
-}
-
-function doPost(event) {
-  budgetBot.doPost(event);
-}
-
-function setWebhook() {
-  budgetBot.setWebhook();
-}
-```
 8. Publish it again
-9. For get chatId set /start command to bot
+9. For get chatId send `/start` command to bot
 10. Run setWebhook function (only once)
 11. Setup daily trigger (e.g. at morning) in Google Scripts for sendNotify function
 12. Done! You're breathtaking!

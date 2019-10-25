@@ -2,11 +2,11 @@ require('dotenv').config();
 
 const path = require('path');
 const DotenvPlugin = require('webpack-dotenv-plugin');
+const GasPlugin = require('gas-webpack-plugin');
 
 module.exports = {
     entry: './src/app.js',
     output: {
-        library: 'budgetBot',
         path: path.resolve(__dirname, './dist'),
         filename: 'bundle.js'
     },
@@ -29,5 +29,6 @@ module.exports = {
     },
     plugins: [
         new DotenvPlugin(),
+        new GasPlugin(),
     ]
 };
