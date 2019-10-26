@@ -1,12 +1,11 @@
 export default class SpreadsheetAppAdapter {
 
-    constructor() {
+    /**
+     * @param {DateHandler} dateHandler
+     */
+    constructor(dateHandler) {
         this.sheet = null;
-
-        this.today = new Date();
-        this.today.setHours(1);
-        this.today.setMinutes(0);
-        this.today.setSeconds(0);
+        this.today = dateHandler.create();
 
         this.positionRowStart = process.env.POSITION_ROW_START;
         this.positionColumnDates = process.env.POSITION_COLUMN_DATES;
