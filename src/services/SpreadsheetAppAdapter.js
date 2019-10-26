@@ -43,7 +43,7 @@ export default class SpreadsheetAppAdapter {
 
         for (let i = 0; i < columnValues.length; i++) {
             if (columnValues[i].toString() === searchString.toString()) {
-                return startRow + i;
+                return Number(startRow) + i;
             }
         }
 
