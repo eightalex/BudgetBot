@@ -1,3 +1,5 @@
+import {DELIMITER_WORD, DELIMITER_SENTENCE} from "../constants/Delimiter";
+
 export default class MessageGenerator {
 
     /**
@@ -7,8 +9,6 @@ export default class MessageGenerator {
         this.budget = budget;
 
         this.currency = process.env.CURRENCY_ACRONYM;
-        this.wordSeparator = ' ';
-        this.sentenceSeparator = '. ';
 
         this.startMessages = [
             'Ну привет'
@@ -98,9 +98,9 @@ export default class MessageGenerator {
         const chatId = options.hasOwnProperty('chatId') ? options.chatId : '0';
 
         return this.getRandomMessage(this.startMessages)
-            + this.sentenceSeparator
+            + DELIMITER_SENTENCE
             + this.getChadIdMessage()
-            + this.wordSeparator
+            + DELIMITER_WORD
             + chatId;
     }
 
@@ -109,9 +109,9 @@ export default class MessageGenerator {
      */
     getTodayBudgetMessage() {
         return this.getRandomMessage(this.todayBudgetMessages)
-            + this.wordSeparator
+            + DELIMITER_WORD
             + this.budget.getTodayBudget()
-            + this.wordSeparator
+            + DELIMITER_WORD
             + this.currency;
     }
 
@@ -127,7 +127,7 @@ export default class MessageGenerator {
      */
     getUndoMessage() {
         return this.getRandomMessage(this.undoMessages)
-            + this.sentenceSeparator
+            + DELIMITER_SENTENCE
             + this.getTodayMessage();
     }
 
@@ -136,9 +136,9 @@ export default class MessageGenerator {
      */
     getTodayMessage() {
         return this.getRandomMessage(this.todayMessages)
-            + this.wordSeparator
+            + DELIMITER_WORD
             + this.budget.getTodayBudget()
-            + this.wordSeparator
+            + DELIMITER_WORD
             + this.currency;
     }
 
@@ -147,7 +147,7 @@ export default class MessageGenerator {
      */
     getExpenseMessage() {
         return this.getOkMessage()
-            + this.sentenceSeparator
+            + DELIMITER_SENTENCE
             + this.getTodayMessage();
     }
 

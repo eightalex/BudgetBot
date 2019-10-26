@@ -1,4 +1,5 @@
 import {REGEX_COMMAND, REGEX_DIGITS, REGEX_NEW_LINE, REGEX_WORDS} from '../constants/Regex';
+import {DELIMITER_WORD, DELIMITER_TRANSACTION} from '../constants/Delimiter';
 
 export default class MessageHandler {
 
@@ -7,8 +8,6 @@ export default class MessageHandler {
      */
     constructor(numberHandler) {
         this.numberHandler = numberHandler;
-        this.transactionSeparator = ', ';
-        this.wordSeparator = ' ';
     }
 
     /**
@@ -24,7 +23,7 @@ export default class MessageHandler {
      * @return {string}
      */
     removeNewLine(inputComment) {
-        return inputComment.replace(REGEX_NEW_LINE, this.wordSeparator);
+        return inputComment.replace(REGEX_NEW_LINE, DELIMITER_WORD);
     }
 
     /**
@@ -41,7 +40,7 @@ export default class MessageHandler {
 
         comment = comment.charAt(0).toUpperCase() + comment.slice(1); // capitalize
 
-        return comment + this.wordSeparator + '(' + inputValue + ')';
+        return comment + DELIMITER_WORD + '(' + inputValue + ')';
     }
 
     /**
@@ -66,7 +65,7 @@ export default class MessageHandler {
      * @return {{value: number, comment: string}}
      */
     prepareUndo(currentValue, currentComment) {
-        let comments = currentComment.split(this.transactionSeparator);
+        let comments = currentComment.split(DELIMITER_TRANSACTION);
 
         const lastComment = comments.pop();
         const valueResult = REGEX_DIGITS.exec(lastComment);
@@ -74,7 +73,7 @@ export default class MessageHandler {
 
         return {
             value: currentValue - previousValue,
-            comment: comments.join(this.transactionSeparator)
+            comment: comments.join(DELIMITER_TRANSACTION)
         };
     }
 

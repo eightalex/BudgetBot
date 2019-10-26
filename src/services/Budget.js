@@ -1,3 +1,5 @@
+import {DELIMITER_TRANSACTION} from "../constants/Delimiter";
+
 export default class Budget {
 
     /**
@@ -7,7 +9,6 @@ export default class Budget {
     constructor(spreadsheetAppAdapter, messageHandler) {
         this.spreadsheetAppAdapter = spreadsheetAppAdapter;
         this.messageHandler = messageHandler;
-        this.wordSeparator = ', ';
 
         this.spreadsheetAppAdapter.setActiveSheet();
     }
@@ -34,7 +35,7 @@ export default class Budget {
         let inputComment = transaction.comment;
 
         if (currentComment.length) {
-            inputComment = this.wordSeparator + inputComment;
+            inputComment = DELIMITER_TRANSACTION + inputComment;
         }
 
         valueCell.setValue(currentValue + inputValue);
