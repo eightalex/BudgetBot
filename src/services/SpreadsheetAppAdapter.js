@@ -8,11 +8,11 @@ export default class SpreadsheetAppAdapter {
         this.today.setMinutes(0);
         this.today.setSeconds(0);
 
-        this.startRowPosition = 2; // first row is header
-        this.datesColumnPosition = process.env.DATES_COLUMN_POSITION;
-        this.commentsColumnPosition = process.env.COMMENTS_COLUMN_POSITION;
-        this.valueColumnPosition = process.env.VALUE_COLUMN_POSITION;
-        this.balanceColumnPosition = process.env.BALANCE_COLUMN_POSITION;
+        this.positionRowStart = process.env.POSITION_ROW_START;
+        this.positionColumnDates = process.env.POSITION_COLUMN_DATES;
+        this.positionColumnComments = process.env.POSITION_COLUMN_COMMENTS;
+        this.positionColumnValue = process.env.POSITION_COLUMN_VALUE;
+        this.positionColumnBalance = process.env.POSITION_COLUMN_BALANCE;
     }
 
     /**
@@ -56,8 +56,8 @@ export default class SpreadsheetAppAdapter {
      */
     getCurrentRowPosition() {
         return this.getRowPosition(
-            this.startRowPosition,
-            this.datesColumnPosition,
+            this.positionRowStart,
+            this.positionColumnDates,
             this.today
         );
     }
@@ -85,7 +85,7 @@ export default class SpreadsheetAppAdapter {
     getCommentsCell() {
         return this.sheet.getRange(
             this.getCurrentRowPosition(),
-            this.commentsColumnPosition
+            this.positionColumnComments
         );
     }
 
@@ -95,7 +95,7 @@ export default class SpreadsheetAppAdapter {
     getValueCell() {
         return this.sheet.getRange(
             this.getCurrentRowPosition(),
-            this.valueColumnPosition
+            this.positionColumnValue
         );
     }
 
@@ -105,7 +105,7 @@ export default class SpreadsheetAppAdapter {
     getBalanceCell() {
         return this.sheet.getRange(
             this.getCurrentRowPosition(),
-            this.balanceColumnPosition
+            this.positionColumnBalance
         )
     }
 
