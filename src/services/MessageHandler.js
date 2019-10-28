@@ -1,29 +1,15 @@
-import {REGEX_COMMAND, REGEX_DIGITS, REGEX_NEW_LINE, REGEX_WORDS} from '../constants/Regex';
+import {REGEX_DIGITS, REGEX_WORDS} from '../constants/Regex';
 import {DELIMITER_WORD, DELIMITER_TRANSACTION} from '../constants/Delimiter';
 
 export default class MessageHandler {
 
     /**
      * @param {NumberHandler} numberHandler
+     * @param {StringHandler} stringHandler
      */
-    constructor(numberHandler) {
+    constructor(numberHandler, stringHandler) {
         this.numberHandler = numberHandler;
-    }
-
-    /**
-     * @param {string} inputMessage
-     * @return {string}
-     */
-    removeCommand(inputMessage) {
-        return inputMessage.replace(REGEX_COMMAND, '');
-    }
-
-    /**
-     * @param {string} inputComment
-     * @return {string}
-     */
-    removeNewLine(inputComment) {
-        return inputComment.replace(REGEX_NEW_LINE, DELIMITER_WORD);
+        this.stringHandler = stringHandler;
     }
 
     /**
@@ -32,13 +18,12 @@ export default class MessageHandler {
      * @return {string}
      */
     prepareComment(inputComment, inputValue) {
-        let comment = this.removeNewLine(inputComment.trim());
-
-        if (!comment) {
-            return '';
+        if (!inputComment) {
+            return ''; // TODO add Error
         }
 
-        comment = comment.charAt(0).toUpperCase() + comment.slice(1); // capitalize
+        let comment = this.stringHandler.removeNewLine(inputComment.trim());
+        comment = this.stringHandler.capitalize(comment);
 
         return comment + DELIMITER_WORD + '(' + inputValue + ')';
     }
@@ -49,7 +34,7 @@ export default class MessageHandler {
      * @return {{value: number, comment: string}}
      */
     prepareTransaction(inputMessage, isIncome) {
-        const message = this.removeCommand(inputMessage);
+        const message = this.stringHandler.removeCommand(inputMessage);
         const valueResult = REGEX_DIGITS.exec(message);
         const commentResult = REGEX_WORDS.exec(message);
 

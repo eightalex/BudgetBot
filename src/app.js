@@ -10,12 +10,14 @@ import MonoDataHandler from './services/MonoDataHandler';
 import TelegramDataHandler from './services/TelegramDataHandler';
 import ObjectHandler from './utils/ObjectHandler';
 import DateHandler from './utils/DateHandler';
+import StringHandler from './utils/StringHandler';
 
 const dateHandler = new DateHandler();
 const numberHandler = new NumberHandler();
 const objectHandler = new ObjectHandler();
+const stringHandler = new StringHandler();
 const spreadsheetAppAdapter = new SpreadsheetAppAdapter(dateHandler);
-const messageHandler = new MessageHandler(numberHandler);
+const messageHandler = new MessageHandler(numberHandler, stringHandler);
 const budget = new Budget(spreadsheetAppAdapter, messageHandler);
 const messageGenerator = new MessageGenerator(budget);
 const telegram = new TelegramAdapter();

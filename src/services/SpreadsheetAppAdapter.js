@@ -47,7 +47,7 @@ export default class SpreadsheetAppAdapter {
             }
         }
 
-        return false;
+        return false; // TODO add Error
     }
 
     /**
