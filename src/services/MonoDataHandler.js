@@ -23,9 +23,10 @@ export default class MonoDataHandler {
         const isIncome = amount > 0;
         const value = this.numberHandler.prepareValue(amount, isIncome);
         const comment = this.messageHandler.prepareComment(contents.data.statementItem.description, value);
+        const messageType = isIncome ? 'income' : 'today';
 
         this.budget.setTransaction({comment, value});
-        this.telegram.message(process.env.CHAT_ID, this.messageGenerator.getMessage('today'));
+        this.telegram.message(process.env.CHAT_ID, this.messageGenerator.getMessage(messageType, {/**/}));
     }
 
 }
