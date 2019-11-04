@@ -1,5 +1,5 @@
 import {REGEX_DIGITS, REGEX_WORDS} from '../constants/Regex';
-import {DELIMITER_WORD, DELIMITER_TRANSACTION} from '../constants/Delimiter';
+import {DELIMITER_WORD, DELIMITER_TRANSACTION, DELIMITER_DASH} from '../constants/Delimiter';
 
 export default class MessageHandler {
 
@@ -13,19 +13,51 @@ export default class MessageHandler {
     }
 
     /**
-     * @param {string} inputComment
-     * @param {number} inputValue
+     * @param {string} comment
+     * @param {number} value
      * @return {string}
      */
-    prepareComment(inputComment, inputValue) {
-        if (!inputComment) {
+    extendCommentForTelegramMessage(comment, value) {
+        return comment
+            + DELIMITER_WORD
+            + DELIMITER_DASH
+            + DELIMITER_WORD
+            + value
+            + DELIMITER_WORD
+            + process.env.CURRENCY_ACRONYM;
+    }
+
+    /**
+     * @param {string} comment
+     * @param {number} value
+     * @return {string}
+     */
+    extendCommentForSheets(comment, value) {
+        return comment + DELIMITER_WORD + this.stringHandler.wrapByBraces(value);
+    }
+
+    /**
+     * @param {string} comment
+     * @param {number} value
+     * @param {object} options
+     * @return {string}
+     */
+    prepareComment(comment, value, options = {}) {
+        if (!comment) {
             return ''; // TODO add Error
         }
 
-        let comment = this.stringHandler.removeNewLine(inputComment.trim());
+        comment = comment.trim();
+        comment = this.stringHandler.removeNewLine(comment);
         comment = this.stringHandler.capitalize(comment);
 
-        return comment + DELIMITER_WORD + '(' + inputValue + ')';
+        if (options.isTelegramMessage) {
+            comment = this.extendCommentForTelegramMessage(comment, value);
+        } else {
+            comment = this.extendCommentForSheets(comment, value);
+        }
+
+        return comment;
     }
 
     /**

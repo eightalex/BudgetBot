@@ -27,4 +27,12 @@ export default class StringHandler {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
+    /**
+     * @param {string|number} str
+     * @return {string}
+     */
+    wrapByBraces(str) {
+        return '(' + str + ')';
+    }
+
 }

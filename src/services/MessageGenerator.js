@@ -1,4 +1,4 @@
-import {DELIMITER_WORD, DELIMITER_SENTENCE} from "../constants/Delimiter";
+import {DELIMITER_WORD, DELIMITER_SENTENCE, DELIMITER_LINE} from '../constants/Delimiter';
 
 export default class MessageGenerator {
 
@@ -34,12 +34,8 @@ export default class MessageGenerator {
             'На сегодня осталось', 'Осталось', 'На сегодня ещё есть'
         ];
 
-        this.incomeMessages = [
-            'Теперь на сегодня осталось', 'Теперь на сегодня', 'Теперь осталось'
-        ];
-
         this.commandExceptionMessages = [
-            'Всё не то. Давай по новой'
+            'Всё не то. Давай по новой', 'Что-то пошло не так'
         ];
     }
 
@@ -60,10 +56,10 @@ export default class MessageGenerator {
                 return this.getUndoMessage();
             case 'today':
                 return this.getTodayMessage();
+            case 'transaction':
+                return this.getTransactionMessage(options);
             case 'expense':
                 return this.getExpenseMessage();
-            case 'income':
-                return this.getIncomeMessage();
             case 'commandException':
                 return this.getCommandException();
             default:
@@ -149,23 +145,24 @@ export default class MessageGenerator {
     }
 
     /**
+     * @param {object} options
      * @return {string}
      */
-    getExpenseMessage() {
-        return this.getOkMessage()
-            + DELIMITER_SENTENCE
+    getTransactionMessage(options) {
+        const transactionComment = options.hasOwnProperty('comment') ? options.comment : '';
+
+        return transactionComment
+            + DELIMITER_LINE
             + this.getTodayMessage();
     }
 
     /**
      * @return {string}
      */
-    getIncomeMessage() {
-        return this.getRandomMessage(this.incomeMessages)
-            + DELIMITER_WORD
-            + this.budget.getTodayBudget()
-            + DELIMITER_WORD
-            + this.currency;
+    getExpenseMessage() {
+        return this.getOkMessage()
+            + DELIMITER_SENTENCE
+            + this.getTodayMessage();
     }
 
     /**

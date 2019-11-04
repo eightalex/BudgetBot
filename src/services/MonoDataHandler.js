@@ -19,14 +19,18 @@ export default class MonoDataHandler {
      * @param {json} contents
      */
     handle(contents) {
-        const amount = this.numberHandler.prepareMonoAmount(contents.data.statementItem.amount);
+        const monoAmount = contents.data.statementItem.amount;
+        const monoDescription = contents.data.statementItem.description;
+        const amount = this.numberHandler.prepareMonoAmount(monoAmount);
         const isIncome = amount > 0;
         const value = this.numberHandler.prepareValue(amount, isIncome);
-        const comment = this.messageHandler.prepareComment(contents.data.statementItem.description, value);
-        const messageType = isIncome ? 'income' : 'today';
+        const commentSheets = this.messageHandler.prepareComment(monoDescription, value);
+        const commentTelegram = this.messageHandler.prepareComment(monoDescription, value, {isTelegramMessage: true});
 
-        this.budget.setTransaction({comment, value});
-        this.telegram.message(process.env.CHAT_ID, this.messageGenerator.getMessage(messageType, {/**/}));
+        this.budget.setTransaction({comment: commentSheets, value});
+        this.telegram.message(process.env.CHAT_ID, this.messageGenerator.getMessage('transaction', {
+            comment: commentTelegram
+        }));
     }
 
 }
