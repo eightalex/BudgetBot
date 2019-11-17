@@ -1,4 +1,4 @@
-import {REGEX_COMMAS} from '../constants/Regex';
+import {REGEX_COMMAS, REGEX_DIGITS_IN_BRACES} from '../constants/Regex';
 
 export default class NumberHandler {
 
@@ -58,6 +58,16 @@ export default class NumberHandler {
         return makeNegative
             ? this.makeNegative(value)
             : this.makePositive(value);
+    }
+
+    /**
+     * @param {string} str
+     * @returns {number}
+     */
+    getValueFromBraces(str) {
+        const POSITION_VALUE = 1;
+        const result = REGEX_DIGITS_IN_BRACES.exec(str);
+        return parseInt(result[POSITION_VALUE]);
     }
 
 }

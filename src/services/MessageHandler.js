@@ -1,4 +1,4 @@
-import {REGEX_DIGITS, REGEX_WORDS} from '../constants/Regex';
+import {REGEX_DIGITS, REGEX_DIGITS_IN_BRACES, REGEX_WORDS} from '../constants/Regex';
 import {DELIMITER_WORD, DELIMITER_TRANSACTION, DELIMITER_DASH} from '../constants/Delimiter';
 
 export default class MessageHandler {
@@ -83,10 +83,8 @@ export default class MessageHandler {
      */
     prepareUndo(currentValue, currentComment) {
         let comments = currentComment.split(DELIMITER_TRANSACTION);
-
-        const lastComment = comments.pop();
-        const valueResult = REGEX_DIGITS.exec(lastComment);
-        const previousValue = this.numberHandler.prepareValue(valueResult[0]);
+        let lastComment = comments.pop();
+        let previousValue = this.numberHandler.getValueFromBraces(lastComment);
 
         return {
             value: currentValue - previousValue,
