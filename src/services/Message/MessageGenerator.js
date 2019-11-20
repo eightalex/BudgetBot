@@ -1,4 +1,4 @@
-import {DELIMITER_WORD, DELIMITER_SENTENCE, DELIMITER_LINE} from '../constants/Delimiter';
+import {DELIMITER_WORD, DELIMITER_SENTENCE, DELIMITER_LINE} from '../../constants/Delimiter';
 
 export default class MessageGenerator {
 

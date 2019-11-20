@@ -1,15 +1,15 @@
-import SpreadsheetAppAdapter from './services/SpreadsheetAppAdapter';
+import MessageGenerator from './services/Message/MessageGenerator';
+import MessageHandler from './services/Message/MessageHandler';
+import MonoAdapter from './services/Mono/MonoAdapter';
+import MonoDataHandler from './services/Mono/MonoDataHandler';
+import TelegramAdapter from './services/Telegram/TelegramAdapter';
+import TelegramDataHandler from './services/Telegram/TelegramDataHandler';
 import Budget from './services/Budget';
-import TelegramAdapter from './services/TelegramAdapter';
-import MessageHandler from './services/MessageHandler';
-import MessageGenerator from './services/MessageGenerator';
-import NumberHandler from './utils/NumberHandler';
-import MonoAdapter from './services/MonoAdapter';
 import RequestHandler from './services/RequestHandler';
-import MonoDataHandler from './services/MonoDataHandler';
-import TelegramDataHandler from './services/TelegramDataHandler';
-import ObjectHandler from './utils/ObjectHandler';
+import SpreadsheetAppAdapter from './services/SpreadsheetAppAdapter';
 import DateHandler from './utils/DateHandler';
+import NumberHandler from './utils/NumberHandler';
+import ObjectHandler from './utils/ObjectHandler';
 import StringHandler from './utils/StringHandler';
 
 const dateHandler = new DateHandler();

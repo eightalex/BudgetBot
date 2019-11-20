@@ -1,5 +1,5 @@
-import {REGEX_DIGITS, REGEX_DIGITS_IN_BRACES, REGEX_WORDS} from '../constants/Regex';
-import {DELIMITER_WORD, DELIMITER_TRANSACTION, DELIMITER_DASH} from '../constants/Delimiter';
+import {REGEX_DIGITS, REGEX_WORDS} from '../../constants/Regex';
+import {DELIMITER_WORD, DELIMITER_TRANSACTION, DELIMITER_DASH} from '../../constants/Delimiter';
 
 export default class MessageHandler {
 
