@@ -1,10 +1,19 @@
 export default class MonoAdapter {
 
-    constructor() {
-        this.token = process.env.MONO_TOKEN;
-        this.googleAppUrl = process.env.GOOGLE_APP_URL;
-        this.apiUrl = 'https://api.monobank.ua';
-    }
+    /**
+     * @type {string}
+     */
+    #token = process.env.MONO_TOKEN;
+
+    /**
+     * @type {string}
+     */
+    #googleAppUrl = process.env.GOOGLE_APP_URL;
+
+    /**
+     * @type {string}
+     */
+    #apiUrl = 'https://api.monobank.ua';
 
     /**
      * @return {Promise<Response>}
@@ -14,14 +23,14 @@ export default class MonoAdapter {
             method: 'post',
             contentType: 'application/json',
             headers: {
-                'X-Token': this.token
+                'X-Token': this.#token
             },
             payload: JSON.stringify({
-                webHookUrl: this.googleAppUrl
+                webHookUrl: this.#googleAppUrl
             })
         };
 
-        return UrlFetchApp.fetch(this.apiUrl + '/personal/webhook', options);
+        return UrlFetchApp.fetch(this.#apiUrl + '/personal/webhook', options);
     }
 
 }

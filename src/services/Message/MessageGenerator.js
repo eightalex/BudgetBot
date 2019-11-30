@@ -1,42 +1,18 @@
 import {DELIMITER_WORD, DELIMITER_SENTENCE, DELIMITER_LINE} from '../../constants/Delimiter';
+import messages from '../../data/Messages';
 
 export default class MessageGenerator {
+
+    /**
+     * @type {string}
+     */
+    #currency = process.env.CURRENCY_ACRONYM;
 
     /**
      * @param {Budget} budget
      */
     constructor(budget) {
         this.budget = budget;
-
-        this.currency = process.env.CURRENCY_ACRONYM;
-
-        this.startMessages = [
-            'Ну привет'
-        ];
-
-        this.chadIdMessages = [
-            'Ваш chat id:'
-        ];
-
-        this.todayBudgetMessages = [
-            'Бюджет на сегодня:'
-        ];
-
-        this.okMessages = [
-            'Угу', 'Исполнено', 'Добавил', 'Оке', 'Done', 'Как скажешь', 'Ну ок', 'Ага', 'Хорошо', 'Ок'
-        ];
-
-        this.undoMessages = [
-            'Готово', 'Сделал', 'Отменил', 'Окей', 'Done', 'Как скажешь', 'Ну ок', 'Ага', 'Хорошо', 'Ок'
-        ];
-
-        this.todayMessages = [
-            'На сегодня осталось', 'Осталось', 'На сегодня ещё есть'
-        ];
-
-        this.commandExceptionMessages = [
-            'Всё не то. Давай по новой', 'Что-то пошло не так'
-        ];
     }
 
     /**
@@ -89,7 +65,7 @@ export default class MessageGenerator {
      * @return {string}
      */
     getChadIdMessage() {
-        return this.getRandomMessage(this.chadIdMessages);
+        return this.getRandomMessage(messages.chadId);
     }
 
     /**
@@ -99,7 +75,7 @@ export default class MessageGenerator {
     getStartMessage(options) {
         const chatId = options.hasOwnProperty('chatId') ? options.chatId : '0';
 
-        return this.getRandomMessage(this.startMessages)
+        return this.getRandomMessage(messages.start)
             + DELIMITER_SENTENCE
             + this.getChadIdMessage()
             + DELIMITER_WORD
@@ -110,25 +86,25 @@ export default class MessageGenerator {
      * @return {string}
      */
     getTodayBudgetMessage() {
-        return this.getRandomMessage(this.todayBudgetMessages)
+        return this.getRandomMessage(messages.todayBudget)
             + DELIMITER_WORD
             + this.budget.getTodayBudget()
             + DELIMITER_WORD
-            + this.currency;
+            + this.#currency;
     }
 
     /**
      * @return {string}
      */
     getOkMessage() {
-        return this.getRandomMessage(this.okMessages);
+        return this.getRandomMessage(messages.ok);
     }
 
     /**
      * @return {string}
      */
     getUndoMessage() {
-        return this.getRandomMessage(this.undoMessages)
+        return this.getRandomMessage(messages.undo)
             + DELIMITER_SENTENCE
             + this.getTodayMessage();
     }
@@ -137,11 +113,11 @@ export default class MessageGenerator {
      * @return {string}
      */
     getTodayMessage() {
-        return this.getRandomMessage(this.todayMessages)
+        return this.getRandomMessage(messages.today)
             + DELIMITER_WORD
             + this.budget.getTodayBudget()
             + DELIMITER_WORD
-            + this.currency;
+            + this.#currency;
     }
 
     /**
@@ -169,7 +145,7 @@ export default class MessageGenerator {
      * @return {string}
      */
     getCommandException() {
-        return this.getRandomMessage(this.commandExceptionMessages);
+        return this.getRandomMessage(messages.commandException);
     }
 
 }

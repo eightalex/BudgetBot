@@ -1,17 +1,36 @@
 export default class SpreadsheetAppAdapter {
 
     /**
+     * @type {string}
+     */
+    #positionRowStart = process.env.POSITION_ROW_START;
+
+    /**
+     * @type {string}
+     */
+    #positionColumnDates = process.env.POSITION_COLUMN_DATES;
+
+    /**
+     * @type {string}
+     */
+    #positionColumnComments = process.env.POSITION_COLUMN_COMMENTS;
+
+    /**
+     * @type {string}
+     */
+    #positionColumnValue = process.env.POSITION_COLUMN_VALUE;
+
+    /**
+     * @type {string}
+     */
+    #positionColumnBalance = process.env.POSITION_COLUMN_BALANCE;
+
+    /**
      * @param {DateHandler} dateHandler
      */
     constructor(dateHandler) {
         this.sheet = null;
         this.today = dateHandler.create();
-
-        this.positionRowStart = process.env.POSITION_ROW_START;
-        this.positionColumnDates = process.env.POSITION_COLUMN_DATES;
-        this.positionColumnComments = process.env.POSITION_COLUMN_COMMENTS;
-        this.positionColumnValue = process.env.POSITION_COLUMN_VALUE;
-        this.positionColumnBalance = process.env.POSITION_COLUMN_BALANCE;
     }
 
     /**
@@ -29,8 +48,8 @@ export default class SpreadsheetAppAdapter {
     }
 
     /**
-     * @param {number} startRow
-     * @param {number} column
+     * @param {string} startRow
+     * @param {string} column
      * @param {string} searchString
      * @return {number|boolean}
      */
@@ -55,8 +74,8 @@ export default class SpreadsheetAppAdapter {
      */
     getCurrentRowPosition() {
         return this.getRowPosition(
-            this.positionRowStart,
-            this.positionColumnDates,
+            this.#positionRowStart,
+            this.#positionColumnDates,
             this.today
         );
     }
@@ -84,7 +103,7 @@ export default class SpreadsheetAppAdapter {
     getCommentsCell() {
         return this.sheet.getRange(
             this.getCurrentRowPosition(),
-            this.positionColumnComments
+            this.#positionColumnComments
         );
     }
 
@@ -94,7 +113,7 @@ export default class SpreadsheetAppAdapter {
     getValueCell() {
         return this.sheet.getRange(
             this.getCurrentRowPosition(),
-            this.positionColumnValue
+            this.#positionColumnValue
         );
     }
 
@@ -104,7 +123,7 @@ export default class SpreadsheetAppAdapter {
     getBalanceCell() {
         return this.sheet.getRange(
             this.getCurrentRowPosition(),
-            this.positionColumnBalance
+            this.#positionColumnBalance
         )
     }
 

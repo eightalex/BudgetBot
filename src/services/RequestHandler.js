@@ -1,6 +1,14 @@
 export default class RequestHandler {
 
     /**
+     * @type {{mono: [string, string], telegram: [string, string]}}
+     */
+    #fields = {
+        mono: ['type', 'data'],
+        telegram: ['update_id', 'message'],
+    };
+
+    /**
      * @param {MonoDataHandler} monoDataHandler
      * @param {TelegramDataHandler} telegramDataHandler
      * @param {ObjectHandler} objectHandler
@@ -9,11 +17,6 @@ export default class RequestHandler {
         this.monoDataHandler = monoDataHandler;
         this.telegramDataHandler = telegramDataHandler;
         this.objectHandler = objectHandler;
-
-        this.fields = {
-            mono: ['type', 'data'],
-            telegram: ['update_id', 'message'],
-        };
     }
 
     /**
@@ -23,10 +26,10 @@ export default class RequestHandler {
         const parsedContents = JSON.parse(contents);
 
         switch (true) {
-            case this.objectHandler.isEqualFields(parsedContents, this.fields.mono):
+            case this.objectHandler.isEqualFields(parsedContents, this.#fields.mono):
                 this.monoDataHandler.handle(parsedContents);
                 break;
-            case this.objectHandler.isEqualFields(parsedContents, this.fields.telegram):
+            case this.objectHandler.isEqualFields(parsedContents, this.#fields.telegram):
                 this.telegramDataHandler.handle(parsedContents);
                 break;
             default:
