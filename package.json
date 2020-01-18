@@ -1,7 +1,6 @@
 {
   "name": "budgetbot",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
@@ -20,6 +19,5 @@
     "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2",
     "webpack-dotenv-plugin": "^2.1.0"
-  },
-  "dependencies": {}
+  }
 }
