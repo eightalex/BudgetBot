@@ -18,8 +18,10 @@ Please follow the instructions for best experience
 5. Clone project `git clone https://github.com/eightalex/BudgetBot.git`
     1. Go to dir `cd BudgetBot/`
     2. Make a copy of .env.sample file `cp .env.sample .env` and setup it
-    3. Run `npm install`
-    4. Run `npm run build`
+    3. If you have several Monobank accounts and want receive transactions from only one - set account id. Otherwise
+       set it value to 'all'
+    4. Run `npm install`
+    5. Run `npm run build`
 6. Copy code from dist/bundle.js and paste it to your published project on Google Scripts
 8. Publish it again
 9. For get chatId send `/start` command to bot

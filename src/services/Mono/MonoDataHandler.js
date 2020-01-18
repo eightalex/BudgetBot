@@ -19,6 +19,12 @@ export default class MonoDataHandler {
      * @param {json} contents
      */
     handle(contents) {
+        const accountID = contents.data.account;
+
+        if (this.isSpecificAccount(accountID) && !this.isRequiredAccount(accountID)) {
+            return;
+        }
+
         const monoAmount = contents.data.statementItem.amount;
         const monoDescription = contents.data.statementItem.description;
         const amount = this.numberHandler.prepareMonoAmount(monoAmount);
@@ -31,6 +37,20 @@ export default class MonoDataHandler {
         this.telegram.message(process.env.CHAT_ID, this.messageGenerator.getMessage('transaction', {
             comment: commentTelegram
         }));
+    }
+
+    /**
+     * @param {string} accountID
+     */
+    isSpecificAccount(accountID) {
+        return process.env.MONO_ACCOUNT_ID !== 'all';
+    }
+
+    /**
+     * @param {string} accountID
+     */
+    isRequiredAccount(accountID) {
+        return process.env.MONO_ACCOUNT_ID === accountID;
     }
 
 }
