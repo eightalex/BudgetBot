@@ -35,4 +35,13 @@ export default class StringHandler {
         return '(' + str + ')';
     }
 
+    /**
+     * Returns command like '/start'
+     * @param {string} str
+     * @return {string}
+     */
+    getCommand(str) {
+        return REGEX_COMMAND.exec(str).shift();
+    }
+
 }

@@ -1,5 +1,3 @@
-import {REGEX_COMMAND} from '../../constants/Regex';
-
 export default class TelegramDataHandler {
 
     /**
@@ -7,12 +5,14 @@ export default class TelegramDataHandler {
      * @param {Budget} budget
      * @param {MessageGenerator} messageGenerator
      * @param {MessageHandler} messageHandler
+     * @param {StringHandler} stringHandler
      */
-    constructor(telegram, budget, messageGenerator, messageHandler) {
+    constructor(telegram, budget, messageGenerator, messageHandler, stringHandler) {
         this.telegram = telegram;
         this.budget = budget;
         this.messageGenerator = messageGenerator;
         this.messageHandler = messageHandler;
+        this.stringHandler = stringHandler;
     }
 
     /**
@@ -42,7 +42,7 @@ export default class TelegramDataHandler {
      * @return {void}
      */
     handleCommand() {
-        const command = REGEX_COMMAND.exec(this.text)[0]; // TODO add getCommand()
+        const command = this.stringHandler.getCommand(this.text);
 
         switch (command) {
             case '/start':

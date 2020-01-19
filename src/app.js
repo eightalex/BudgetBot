@@ -23,7 +23,7 @@ const messageHandler = new MessageHandler(numberHandler, stringHandler);
 const budget = new Budget(spreadsheetAppAdapter, messageHandler);
 const messageGenerator = new MessageGenerator(budget);
 const monoDataHandler = new MonoDataHandler(budget, telegram, numberHandler, messageHandler, messageGenerator);
-const telegramDataHandler = new TelegramDataHandler(telegram, budget, messageGenerator, messageHandler);
+const telegramDataHandler = new TelegramDataHandler(telegram, budget, messageGenerator, messageHandler, stringHandler);
 const requestHandler = new RequestHandler(monoDataHandler, telegramDataHandler, objectHandler);
 
 global.sendNotify = () => {
