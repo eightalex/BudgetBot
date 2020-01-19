@@ -15,30 +15,6 @@ export default class MessageHandler {
     /**
      * @param {string} comment
      * @param {number} value
-     * @return {string}
-     */
-    extendCommentForTelegramMessage(comment, value) {
-        return comment
-            + DELIMITER_WORD
-            + DELIMITER_DASH
-            + DELIMITER_WORD
-            + value
-            + DELIMITER_WORD
-            + process.env.CURRENCY_ACRONYM;
-    }
-
-    /**
-     * @param {string} comment
-     * @param {number} value
-     * @return {string}
-     */
-    extendCommentForSheets(comment, value) {
-        return comment + DELIMITER_WORD + this.stringHandler.wrapByBraces(value);
-    }
-
-    /**
-     * @param {string} comment
-     * @param {number} value
      * @param {object} options
      * @return {string}
      */
@@ -90,6 +66,30 @@ export default class MessageHandler {
             value: currentValue - previousValue,
             comment: comments.join(DELIMITER_TRANSACTION)
         };
+    }
+
+    /**
+     * @param {string} comment
+     * @param {number} value
+     * @return {string}
+     */
+    extendCommentForTelegramMessage(comment, value) {
+        return comment
+            + DELIMITER_WORD
+            + DELIMITER_DASH
+            + DELIMITER_WORD
+            + value
+            + DELIMITER_WORD
+            + process.env.CURRENCY_ACRONYM;
+    }
+
+    /**
+     * @param {string} comment
+     * @param {number} value
+     * @return {string}
+     */
+    extendCommentForSheets(comment, value) {
+        return comment + DELIMITER_WORD + this.stringHandler.wrapByBraces(value);
     }
 
 }
