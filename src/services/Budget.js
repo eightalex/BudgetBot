@@ -9,8 +9,6 @@ export default class Budget {
     constructor(spreadsheetAppAdapter, messageHandler) {
         this.spreadsheetAppAdapter = spreadsheetAppAdapter;
         this.messageHandler = messageHandler;
-
-        this.spreadsheetAppAdapter.setActiveSheet();
     }
 
     /**

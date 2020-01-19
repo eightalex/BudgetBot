@@ -1,43 +1,11 @@
 export default class SpreadsheetAppAdapter {
 
     /**
-     * @type {string}
-     */
-    #positionRowStart = process.env.POSITION_ROW_START;
-
-    /**
-     * @type {string}
-     */
-    #positionColumnDates = process.env.POSITION_COLUMN_DATES;
-
-    /**
-     * @type {string}
-     */
-    #positionColumnComments = process.env.POSITION_COLUMN_COMMENTS;
-
-    /**
-     * @type {string}
-     */
-    #positionColumnValue = process.env.POSITION_COLUMN_VALUE;
-
-    /**
-     * @type {string}
-     */
-    #positionColumnBalance = process.env.POSITION_COLUMN_BALANCE;
-
-    /**
      * @param {DateHandler} dateHandler
      */
     constructor(dateHandler) {
-        this.sheet = null;
-        this.today = dateHandler.create();
-    }
-
-    /**
-     * @return {void}
-     */
-    setActiveSheet() {
         this.sheet = this.getActiveSheet();
+        this.today = dateHandler.create();
     }
 
     /**
@@ -74,8 +42,8 @@ export default class SpreadsheetAppAdapter {
      */
     getCurrentRowPosition() {
         return this.getRowPosition(
-            this.#positionRowStart,
-            this.#positionColumnDates,
+            process.env.POSITION_ROW_START,
+            process.env.POSITION_COLUMN_DATES,
             this.today
         );
     }
@@ -103,7 +71,7 @@ export default class SpreadsheetAppAdapter {
     getCommentsCell() {
         return this.sheet.getRange(
             this.getCurrentRowPosition(),
-            this.#positionColumnComments
+            process.env.POSITION_COLUMN_COMMENTS
         );
     }
 
@@ -113,7 +81,7 @@ export default class SpreadsheetAppAdapter {
     getValueCell() {
         return this.sheet.getRange(
             this.getCurrentRowPosition(),
-            this.#positionColumnValue
+            process.env.POSITION_COLUMN_VALUE
         );
     }
 
@@ -123,7 +91,7 @@ export default class SpreadsheetAppAdapter {
     getBalanceCell() {
         return this.sheet.getRange(
             this.getCurrentRowPosition(),
-            this.#positionColumnBalance
+            process.env.POSITION_COLUMN_BALANCE
         )
     }
 
