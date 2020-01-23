@@ -23,21 +23,21 @@ export default class MessageGenerator {
     getMessage(type, options = {}) {
         switch (type) {
             case 'start':
-                return this.getStartMessage(options);
-            case 'todayBudget':
-                return this.getTodayBudgetMessage();
+                return this.#getStartMessage(options);
+            case 'notify':
+                return this.#getNotifyMessage();
             case 'ok':
-                return this.getOkMessage();
+                return this.#getOkMessage();
             case 'undo':
-                return this.getUndoMessage();
+                return this.#getUndoMessage();
             case 'today':
-                return this.getTodayMessage();
+                return this.#getTodayMessage();
             case 'transaction':
-                return this.getTransactionMessage(options);
+                return this.#getTransactionMessage(options);
             case 'expense':
-                return this.getExpenseMessage();
+                return this.#getExpenseMessage();
             case 'commandException':
-                return this.getCommandException();
+                return this.#getCommandException();
             default:
                 throw new TypeError('Unresolved message type');
         }
@@ -47,37 +47,37 @@ export default class MessageGenerator {
      * @param {number} length
      * @return {number}
      */
-    getRandomIndex(length) {
+    #getRandomIndex(length) {
         return Math.random() * (length - 1) | 0;
     }
 
     /**
-     * @param {array} messages
+     * @param {array<string>} messages
      * @return {string}
      */
-    getRandomMessage(messages) {
+    #getRandomMessage(messages) {
         return messages[
-            this.getRandomIndex(messages.length)
+            this.#getRandomIndex(messages.length)
         ];
     }
 
     /**
      * @return {string}
      */
-    getChadIdMessage() {
-        return this.getRandomMessage(messages.chadId);
+    #getChadIdMessage() {
+        return this.#getRandomMessage(messages.chadId);
     }
 
     /**
-     * @param {object} options
+     * @param {{chatId: string}} options
      * @return {string}
      */
-    getStartMessage(options) {
+    #getStartMessage(options) {
         const chatId = options.hasOwnProperty('chatId') ? options.chatId : '0';
 
-        return this.getRandomMessage(messages.start)
+        return this.#getRandomMessage(messages.start)
             + DELIMITER_SENTENCE
-            + this.getChadIdMessage()
+            + this.#getChadIdMessage()
             + DELIMITER_WORD
             + chatId;
     }
@@ -85,35 +85,45 @@ export default class MessageGenerator {
     /**
      * @return {string}
      */
-    getTodayBudgetMessage() {
-        return this.getRandomMessage(messages.todayBudget)
+    #getNotifyMessage() {
+        return this.#getRandomMessage(messages.morning)
+            + DELIMITER_LINE
+            + DELIMITER_LINE
+            + this.#getRandomMessage(messages.week)
             + DELIMITER_WORD
-            + this.budget.getTodayBudget()
+            + this.budget.getBudgetForWeek()
             + DELIMITER_WORD
-            + this.#currency;
-    }
-
-    /**
-     * @return {string}
-     */
-    getOkMessage() {
-        return this.getRandomMessage(messages.ok);
-    }
-
-    /**
-     * @return {string}
-     */
-    getUndoMessage() {
-        return this.getRandomMessage(messages.undo)
+            + this.#currency
             + DELIMITER_SENTENCE
-            + this.getTodayMessage();
+            + DELIMITER_LINE
+            + this.#getRandomMessage(messages.month)
+            + DELIMITER_WORD
+            + this.budget.getBudgetForMonth()
+            + DELIMITER_WORD
+            + this.#currency;
     }
 
     /**
      * @return {string}
      */
-    getTodayMessage() {
-        return this.getRandomMessage(messages.today)
+    #getOkMessage() {
+        return this.#getRandomMessage(messages.ok);
+    }
+
+    /**
+     * @return {string}
+     */
+    #getUndoMessage() {
+        return this.#getRandomMessage(messages.undo)
+            + DELIMITER_SENTENCE
+            + this.#getTodayMessage();
+    }
+
+    /**
+     * @return {string}
+     */
+    #getTodayMessage() {
+        return this.#getRandomMessage(messages.today)
             + DELIMITER_WORD
             + this.budget.getTodayBudget()
             + DELIMITER_WORD
@@ -121,31 +131,31 @@ export default class MessageGenerator {
     }
 
     /**
-     * @param {object} options
+     * @param {{comment: string}} options
      * @return {string}
      */
-    getTransactionMessage(options) {
+    #getTransactionMessage(options) {
         const transactionComment = options.hasOwnProperty('comment') ? options.comment : '';
 
         return transactionComment
             + DELIMITER_LINE
-            + this.getTodayMessage();
+            + this.#getTodayMessage();
     }
 
     /**
      * @return {string}
      */
-    getExpenseMessage() {
-        return this.getOkMessage()
+    #getExpenseMessage() {
+        return this.#getOkMessage()
             + DELIMITER_SENTENCE
-            + this.getTodayMessage();
+            + this.#getTodayMessage();
     }
 
     /**
      * @return {string}
      */
-    getCommandException() {
-        return this.getRandomMessage(messages.commandException);
+    #getCommandException() {
+        return this.#getRandomMessage(messages.commandException);
     }
 
 }

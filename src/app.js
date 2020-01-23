@@ -27,7 +27,7 @@ const telegramDataHandler = new TelegramDataHandler(telegram, budget, messageGen
 const requestHandler = new RequestHandler(monoDataHandler, telegramDataHandler, objectHandler);
 
 global.sendNotify = () => {
-    telegram.message(process.env.CHAT_ID, messageGenerator.getMessage('todayBudget'));
+    telegram.message(process.env.CHAT_ID, messageGenerator.getMessage('notify'));
 };
 
 global.doPost = event => {

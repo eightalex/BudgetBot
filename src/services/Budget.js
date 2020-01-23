@@ -19,6 +19,20 @@ export default class Budget {
     }
 
     /**
+     * @return {string}
+     */
+    getBudgetForWeek() {
+        return this.spreadsheetAppAdapter.getCell('weekBudget').getDisplayValue();
+    }
+
+    /**
+     * @return {string}
+     */
+    getBudgetForMonth() {
+        return this.spreadsheetAppAdapter.getCell('monthBudget').getDisplayValue();
+    }
+
+    /**
      * @param {object} transaction
      * @return {void}
      */

@@ -5,7 +5,7 @@ export default class SpreadsheetAppAdapter {
      */
     constructor(dateHandler) {
         this.sheet = this.getActiveSheet();
-        this.today = dateHandler.create();
+        this.dateHandler = dateHandler;
     }
 
     /**
@@ -18,7 +18,7 @@ export default class SpreadsheetAppAdapter {
     /**
      * @param {string} startRow
      * @param {string} column
-     * @param {string} searchString
+     * @param {string|Date} searchString
      * @return {number|boolean}
      */
     getRowPosition(startRow, column, searchString) {
@@ -41,10 +41,25 @@ export default class SpreadsheetAppAdapter {
      * @return {number}
      */
     getCurrentRowPosition() {
+        const today = this.dateHandler.create();
+
         return this.getRowPosition(
             process.env.POSITION_ROW_START,
             process.env.POSITION_COLUMN_DATES,
-            this.today
+            today
+        );
+    }
+
+    /**
+     * @return {number}
+     */
+    getEndOfWeekRowPosition() {
+        const weekEnd = this.dateHandler.getWeekEnd();
+
+        return this.getRowPosition(
+            process.env.POSITION_ROW_START,
+            process.env.POSITION_COLUMN_DATES,
+            weekEnd
         );
     }
 
@@ -60,6 +75,10 @@ export default class SpreadsheetAppAdapter {
                 return this.getValueCell();
             case 'balance':
                 return this.getBalanceCell();
+            case 'weekBudget':
+                return this.getWeekBudgetCell();
+            case 'monthBudget':
+                return this.getMonthBudgetCell();
             default:
                 throw new TypeError('Unresolved cell type');
         }
@@ -92,6 +111,26 @@ export default class SpreadsheetAppAdapter {
         return this.sheet.getRange(
             this.getCurrentRowPosition(),
             process.env.POSITION_COLUMN_BALANCE
+        )
+    }
+
+    /**
+     * @return {object}
+     */
+    getWeekBudgetCell() {
+        return this.sheet.getRange(
+            this.getEndOfWeekRowPosition(),
+            process.env.POSITION_COLUMN_BALANCE
+        );
+    }
+
+    /**
+     * @return {object}
+     */
+    getMonthBudgetCell() {
+        return this.sheet.getRange(
+            process.env.POSITION_ROW_END,
+            process.env.POSITION_COLUMN_BUDGET
         )
     }
 
