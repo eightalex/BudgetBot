@@ -30,13 +30,9 @@ export default class MonoDataHandler {
         const amount = this.numberHandler.prepareMonoAmount(monoAmount);
         const isIncome = amount > 0;
         const value = this.numberHandler.prepareValue(amount, isIncome);
-        const commentSheets = this.messageHandler.prepareComment(monoDescription, value);
-        const commentTelegram = this.messageHandler.prepareComment(monoDescription, value, {isTelegramMessage: true});
+        const comment = this.messageHandler.prepareComment(monoDescription, value);
 
-        this.budget.setTransaction({comment: commentSheets, value});
-        this.telegram.message(process.env.CHAT_ID, this.messageGenerator.getMessage('transaction', {
-            comment: commentTelegram
-        }));
+        this.budget.setTransaction({comment, value});
     }
 
     /**

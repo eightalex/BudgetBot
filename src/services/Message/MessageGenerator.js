@@ -32,8 +32,6 @@ export default class MessageGenerator {
                 return this.#getUndoMessage();
             case 'today':
                 return this.#getTodayMessage();
-            case 'transaction':
-                return this.#getTransactionMessage(options);
             case 'expense':
                 return this.#getExpenseMessage();
             case 'commandException':
@@ -128,18 +126,6 @@ export default class MessageGenerator {
             + this.budget.getTodayBudget()
             + DELIMITER_WORD
             + this.#currency;
-    }
-
-    /**
-     * @param {{comment: string}} options
-     * @return {string}
-     */
-    #getTransactionMessage(options) {
-        const transactionComment = options.hasOwnProperty('comment') ? options.comment : '';
-
-        return transactionComment
-            + DELIMITER_LINE
-            + this.#getTodayMessage();
     }
 
     /**
