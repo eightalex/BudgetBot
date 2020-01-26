@@ -20,7 +20,8 @@ export default class DateHandler {
      */
     getWeekEnd() {
         const today = this.create();
-        const dayWeekStart = today.getDate() - today.getDay() + 1;
+        const dayCurrent = today.getDay();
+        const dayWeekStart = today.getDate() - dayCurrent + (dayCurrent === 0 ? -6 : 1); // adjust when day is sunday
         const dayWeekEnd = dayWeekStart + 6;
 
         return new Date(today.setDate(dayWeekEnd));
