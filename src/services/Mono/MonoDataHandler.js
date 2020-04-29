@@ -16,7 +16,7 @@ export default class MonoDataHandler {
     }
 
     /**
-     * @param {json} contents
+     * @param {WebHookMonoType} contents
      */
     handle(contents) {
         const accountID = contents.data.account;
