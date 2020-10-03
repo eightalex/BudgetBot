@@ -1,3 +1,5 @@
+import {SpreadsheetApp} from '@dgcode/spreadsheet-app';
+
 export default class SpreadsheetAppAdapter {
 
     /**

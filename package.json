@@ -16,8 +16,12 @@
     "@babel/preset-env": "^7.4.5",
     "babel-loader": "^8.0.6",
     "gas-webpack-plugin": "^1.0.2",
+    "jest": "^26.4.2",
     "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2",
     "webpack-dotenv-plugin": "^2.1.0"
+  },
+  "dependencies": {
+    "@dgcode/spreadsheet-app": "^0.1.55"
   }
 }
