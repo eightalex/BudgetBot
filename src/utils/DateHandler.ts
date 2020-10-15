@@ -1,11 +1,10 @@
-export default class DateHandler {
+import {DateHandlerInterface} from './DateHandlerInterface';
 
+export class DateHandler implements DateHandlerInterface {
     /**
      * Create normalized date for Google Sheets
-     * @param {Date} [date]
-     * @returns {Date}
      */
-    create(date) {
+    create(date?: Date): Date {
         date = date || new Date();
 
         date.setHours(1);
@@ -15,10 +14,7 @@ export default class DateHandler {
         return date;
     }
 
-    /**
-     * @returns {Date}
-     */
-    getWeekEnd() {
+    getWeekEnd(): Date {
         const today = this.create();
         const dayCurrent = today.getDay();
         const dayWeekStart = today.getDate() - dayCurrent + (dayCurrent === 0 ? -6 : 1); // adjust when day is sunday
@@ -26,5 +22,4 @@ export default class DateHandler {
 
         return new Date(today.setDate(dayWeekEnd));
     }
-
 }

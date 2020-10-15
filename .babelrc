@@ -6,12 +6,10 @@
       {
         "loose": true
       }
-    ],
-    [
-      "@babel/plugin-proposal-private-methods",
-      {
-        "loose": true
-      }
     ]
+  ],
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-typescript"
   ]
 }

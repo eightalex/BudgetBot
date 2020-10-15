@@ -1,4 +1,4 @@
-export default Object.freeze({
+export const messages = Object.freeze({
 
     start: [
         'Ну привет',
@@ -63,11 +63,6 @@ export default Object.freeze({
         'На месяц ещё есть',
         'Всего вы ещё можете потратить',
         'Ещё можно потратить до конца месяца',
-    ],
-
-    commandException: [
-        'Всё не то. Давай по новой',
-        'Что-то пошло не так',
     ],
 
 });

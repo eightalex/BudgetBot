@@ -5,24 +5,25 @@ const DotenvPlugin = require('webpack-dotenv-plugin');
 const GasPlugin = require('gas-webpack-plugin');
 
 module.exports = {
-    entry: './src/app.js',
+    entry: './src/app.ts',
     output: {
         path: path.resolve(__dirname, './dist'),
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+    },
+    watchOptions: {
+        ignored: /node_modules/,
     },
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(js|ts)$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env'],
-                    },
-                }
+                loader: 'babel-loader',
             },
         ],
+    },
+    resolve: {
+        extensions: ['.js', '.ts'],
     },
     optimization: {
         minimize: false,
@@ -30,5 +31,5 @@ module.exports = {
     plugins: [
         new DotenvPlugin(),
         new GasPlugin(),
-    ]
+    ],
 };
