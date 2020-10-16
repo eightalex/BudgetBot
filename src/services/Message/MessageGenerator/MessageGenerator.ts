@@ -1,18 +1,12 @@
 import {MessageOptionsType} from '../../../types/MessageOptionsType';
-import {HandleError} from '../../Error';
 import {MessageGeneratorInterface} from './MessageGeneratorInterface';
+import {MessageKeys} from './MessageKeys';
 import {MessagePoolInterface} from './MessagePoolInterface';
 
 export class MessageGenerator implements MessageGeneratorInterface {
     constructor(private readonly messagePool: MessagePoolInterface) {}
 
-    getMessage(key: number, options: MessageOptionsType = {}): string {
-        const message = this.messagePool.get(key);
-
-        if (message === undefined) {
-            throw new HandleError('Message not found');
-        }
-
-        return message.getMessage(this.messagePool, options);
+    getMessage(key: MessageKeys, options: MessageOptionsType = {}): string {
+        return this.messagePool.get(key).getMessage(this.messagePool, options);
     }
 }

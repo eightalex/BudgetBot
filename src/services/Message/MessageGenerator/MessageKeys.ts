@@ -1,8 +1,8 @@
 export enum MessageKeys {
-    Expense,
-    Notify,
-    Ok,
-    Start,
-    TodayBudget,
-    Undo,
+    Expense = 'expense',
+    Notify = 'notify',
+    Ok = 'ok',
+    Start = 'start',
+    TodayBudget = 'todayBudget',
+    Undo = 'undo',
 }

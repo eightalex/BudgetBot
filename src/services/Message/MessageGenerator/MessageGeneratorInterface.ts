@@ -1,5 +1,6 @@
 import {MessageOptionsType} from '../../../types/MessageOptionsType';
+import {MessageKeys} from './MessageKeys';
 
 export interface MessageGeneratorInterface {
-    getMessage(key: number, options?: MessageOptionsType): string
+    getMessage(key: MessageKeys, options?: MessageOptionsType): string
 }

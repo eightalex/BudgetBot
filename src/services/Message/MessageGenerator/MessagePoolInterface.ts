@@ -3,5 +3,6 @@ import {MessageKeys} from './MessageKeys';
 
 export interface MessagePoolInterface {
     add(key: MessageKeys, message: MessageInterface): MessagePoolInterface
-    get(key: MessageKeys): MessageInterface | undefined
+    has(key: MessageKeys): boolean
+    get(key: MessageKeys): MessageInterface
 }
