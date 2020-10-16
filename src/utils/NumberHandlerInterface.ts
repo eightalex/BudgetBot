@@ -5,5 +5,5 @@ export interface NumberHandlerInterface {
     prepareMonoAmount(amount: number): number
     prepareValue(value: string | number, makeNegative: boolean): number
     getValueFromBraces(str: string): number
-    getRandomAbsoluteInteger(range: number): number
+    getRandomAbsoluteInteger(max: number): number
 }
