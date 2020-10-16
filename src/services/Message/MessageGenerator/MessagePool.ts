@@ -10,7 +10,7 @@ export class MessagePool implements MessagePoolInterface {
         return this;
     }
 
-    get(key: MessageKeys): MessageInterface {
+    get(key: MessageKeys): MessageInterface | undefined {
         return this.instances[key];
     }
 }
