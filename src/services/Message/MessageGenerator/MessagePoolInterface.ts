@@ -1,6 +1,7 @@
 import {MessageInterface} from './MessageInterface';
+import {MessageKeys} from './MessageKeys';
 
 export interface MessagePoolInterface {
-    add(key: number, message: MessageInterface): MessagePoolInterface
-    get(key: number): MessageInterface
+    add(key: MessageKeys, message: MessageInterface): MessagePoolInterface
+    get(key: MessageKeys): MessageInterface
 }
