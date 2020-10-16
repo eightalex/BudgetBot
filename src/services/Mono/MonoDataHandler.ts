@@ -27,12 +27,11 @@ export class MonoDataHandler implements MonoDataHandlerInterface {
             throw new HandleError('Problem with handle mono account');
         }
 
-        const monoAmount = contents.data.statementItem.amount;
-        const monoDescription = contents.data.statementItem.description;
-        const amount = this.numberHandler.prepareMonoAmount(monoAmount);
-        const isIncome = amount > 0;
-        const value = this.numberHandler.prepareValue(amount, isIncome);
-        const comment = this.messageHandler.prepareComment(monoDescription, value);
+        const {amount, description} = contents.data.statementItem;
+        const monoAmount = this.numberHandler.prepareMonoAmount(amount);
+        const isIncome = monoAmount > 0;
+        const value = this.numberHandler.prepareValue(monoAmount, isIncome);
+        const comment = this.messageHandler.prepareComment(description, value);
 
         this.budget.setTransaction({comment, value});
     }
