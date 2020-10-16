@@ -9,7 +9,7 @@ export class AbstractMessage {
 
     protected getRandomMessage(messages: string[]): string {
         return messages[
-            this.messageHelpers.numberHandler.getRandomIndex(messages.length)
+            this.messageHelpers.numberHandler.getRandomAbsoluteInteger(messages.length)
         ];
     }
 

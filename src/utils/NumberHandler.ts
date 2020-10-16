@@ -54,7 +54,7 @@ export class NumberHandler implements NumberHandlerInterface {
         return parseInt(result[POSITION_VALUE]);
     }
 
-    getRandomIndex(length: number): number {
-        return Math.random() * (length - 1) | 0;
+    getRandomAbsoluteInteger(range: number): number {
+        return Math.random() * (range - 1) | 0;
     }
 }
