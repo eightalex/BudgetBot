@@ -60,13 +60,15 @@ export class MessageHandler implements MessageHandlerInterface {
     }
 
     private extendCommentForTelegramMessage(comment: string, value: number): string {
-        return comment
-            + DELIMITER_SPACE
-            + DELIMITER_DASH
-            + DELIMITER_SPACE
-            + value
-            + DELIMITER_SPACE
-            + process.env.CURRENCY_ACRONYM;
+        return this.stringHandler.compose([
+            comment,
+            DELIMITER_SPACE,
+            DELIMITER_DASH,
+            DELIMITER_SPACE,
+            value.toString(),
+            DELIMITER_SPACE,
+            process.env.CURRENCY_ACRONYM as string,
+        ]);
     }
 
     private extendCommentForSheets(comment: string, value: number): string {
