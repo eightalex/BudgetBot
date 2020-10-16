@@ -1,5 +1,8 @@
+import {ObjectHandlerInterface} from '../utils/ObjectHandlerInterface';
+import {MonoDataHandlerInterface} from './Mono/MonoDataHandlerInterface';
 import {RequestHandlerInterface} from './RequestHandlerInterface';
 import {HandleError} from './Error';
+import {TelegramDataHandlerInterface} from './Telegram/TelegramDataHandlerInterface';
 
 export class RequestHandler implements RequestHandlerInterface {
     private fields: {mono: string[], telegram: string[]} = {
@@ -8,9 +11,9 @@ export class RequestHandler implements RequestHandlerInterface {
     };
 
     constructor(
-        private readonly monoDataHandler,
-        private readonly telegramDataHandler,
-        private readonly objectHandler,
+        private readonly monoDataHandler: MonoDataHandlerInterface,
+        private readonly telegramDataHandler: TelegramDataHandlerInterface,
+        private readonly objectHandler: ObjectHandlerInterface,
     ) {}
 
     handlePost(contents: string): void {
