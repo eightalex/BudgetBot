@@ -1,7 +1,7 @@
 export const messages = Object.freeze({
 
     start: [
-        'Ну привет',
+        'Ну привет. Ваш chat id:',
     ],
 
     chadId: [

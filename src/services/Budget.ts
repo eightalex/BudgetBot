@@ -3,7 +3,7 @@ import {BudgetInterface} from './BudgetInterface';
 import {SpreadsheetAppAdapterInterface} from './SpreadsheetAppAdapterInterface';
 import {MessageHandlerInterface} from './Message/MessageHandlerInterface';
 import {cells} from '../config/cells';
-import {DELIMITER_TRANSACTION} from "../constants/delimiter";
+import {DELIMITER_COMMA} from "../constants/delimiter";
 
 export class Budget implements BudgetInterface {
     constructor(
@@ -34,7 +34,7 @@ export class Budget implements BudgetInterface {
         let inputComment = transaction.comment;
 
         if (currentComment.length) {
-            inputComment = DELIMITER_TRANSACTION + inputComment;
+            inputComment = DELIMITER_COMMA + inputComment;
         }
 
         valueCell.setValue(currentValue + inputValue);

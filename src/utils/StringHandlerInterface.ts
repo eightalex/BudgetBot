@@ -4,4 +4,5 @@ export interface StringHandlerInterface {
     capitalize(str: string): string
     wrapByBraces(str: string | number): string
     getCommand(str: string): string
+    compose(strings: string[]): string
 }

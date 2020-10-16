@@ -1,4 +1,12 @@
-import {MessageGenerator} from './services/Message/MessageGenerator';
+import {MessageGenerator} from './services/Message/MessageGenerator/MessageGenerator';
+import {MessageKeys} from './services/Message/MessageGenerator/MessageKeys';
+import {MessagePool} from './services/Message/MessageGenerator/MessagePool';
+import {MessageExpense} from './services/Message/MessageGenerator/messages/MessageExpense';
+import {MessageNotify} from './services/Message/MessageGenerator/messages/MessageNotify';
+import {MessageOk} from './services/Message/MessageGenerator/messages/MessageOk';
+import {MessageStart} from './services/Message/MessageGenerator/messages/MessageStart';
+import {MessageTodayBudget} from './services/Message/MessageGenerator/messages/MessageTodayBudget';
+import {MessageUndo} from './services/Message/MessageGenerator/messages/MessageUndo';
 import {MessageHandler} from './services/Message/MessageHandler';
 import {MonoAdapter} from './services/Mono/MonoAdapter';
 import {MonoDataHandler} from './services/Mono/MonoDataHandler';
@@ -7,6 +15,7 @@ import {TelegramDataHandler} from './services/Telegram/TelegramDataHandler';
 import {Budget} from './services/Budget';
 import {RequestHandler} from './services/RequestHandler';
 import {SpreadsheetAppAdapter} from './services/SpreadsheetAppAdapter';
+import {MessageHelpersType} from './types/MessageHelpersType';
 import {DateHandler} from './utils/DateHandler';
 import {NumberHandler} from './utils/NumberHandler';
 import {ObjectHandler} from './utils/ObjectHandler';
@@ -23,13 +32,28 @@ const telegram = new TelegramAdapter();
 const spreadsheetAppAdapter = new SpreadsheetAppAdapter(dateHandler);
 const messageHandler = new MessageHandler(numberHandler, stringHandler);
 const budget = new Budget(spreadsheetAppAdapter, messageHandler);
-const messageGenerator = new MessageGenerator(budget);
 const monoDataHandler = new MonoDataHandler(budget, numberHandler, messageHandler);
+const messagePool = new MessagePool();
+const messageGenerator = new MessageGenerator(messagePool);
 const telegramDataHandler = new TelegramDataHandler(telegram, budget, messageGenerator, messageHandler, stringHandler);
 const requestHandler = new RequestHandler(monoDataHandler, telegramDataHandler, objectHandler);
 
+const messageHelpers: MessageHelpersType = {
+    budget,
+    numberHandler,
+    stringHandler,
+};
+
+messagePool
+    .add(MessageKeys.Expense, new MessageExpense(messageHelpers))
+    .add(MessageKeys.Notify, new MessageNotify(messageHelpers))
+    .add(MessageKeys.Ok, new MessageOk(messageHelpers))
+    .add(MessageKeys.Start, new MessageStart(messageHelpers))
+    .add(MessageKeys.TodayBudget, new MessageTodayBudget(messageHelpers))
+    .add(MessageKeys.Undo, new MessageUndo(messageHelpers))
+
 global.sendNotify = () => {
-    telegram.message(process.env.CHAT_ID as string, messageGenerator.getMessage('notify'));
+    telegram.message(process.env.CHAT_ID as string, messageGenerator.getMessage(MessageKeys.Notify));
 };
 
 global.doPost = (event: GoogleAppsScript.Events.DoPost) => {

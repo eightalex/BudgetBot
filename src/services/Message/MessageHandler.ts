@@ -1,5 +1,5 @@
 import {REGEX_DIGITS, REGEX_WORDS} from '../../constants/regex';
-import {DELIMITER_WORD, DELIMITER_TRANSACTION, DELIMITER_DASH} from '../../constants/delimiter';
+import {DELIMITER_SPACE, DELIMITER_COMMA, DELIMITER_DASH} from '../../constants/delimiter';
 import {TransactionType} from '../../types/TransactionType';
 import {NumberHandlerInterface} from '../../utils/NumberHandlerInterface';
 import {StringHandlerInterface} from '../../utils/StringHandlerInterface';
@@ -49,27 +49,27 @@ export class MessageHandler implements MessageHandlerInterface {
     }
 
     prepareUndo(currentValue: number, currentComment: string): TransactionType {
-        const comments = currentComment.split(DELIMITER_TRANSACTION);
+        const comments = currentComment.split(DELIMITER_COMMA);
         const lastComment = comments.pop();
         const previousValue = this.numberHandler.getValueFromBraces(lastComment as string);
 
         return {
             value: currentValue - previousValue,
-            comment: comments.join(DELIMITER_TRANSACTION),
+            comment: comments.join(DELIMITER_COMMA),
         };
     }
 
     private extendCommentForTelegramMessage(comment: string, value: number): string {
         return comment
-            + DELIMITER_WORD
+            + DELIMITER_SPACE
             + DELIMITER_DASH
-            + DELIMITER_WORD
+            + DELIMITER_SPACE
             + value
-            + DELIMITER_WORD
+            + DELIMITER_SPACE
             + process.env.CURRENCY_ACRONYM;
     }
 
     private extendCommentForSheets(comment: string, value: number): string {
-        return comment + DELIMITER_WORD + this.stringHandler.wrapByBraces(value);
+        return comment + DELIMITER_SPACE + this.stringHandler.wrapByBraces(value);
     }
 }

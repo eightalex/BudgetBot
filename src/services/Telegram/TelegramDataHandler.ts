@@ -2,7 +2,8 @@ import * as TelegramBot from 'node-telegram-bot-api';
 import {StringHandlerInterface} from '../../utils/StringHandlerInterface';
 import {BudgetInterface} from '../BudgetInterface';
 import {HandleError} from '../Error';
-import {MessageGeneratorInterface} from '../Message/MessageGeneratorInterface';
+import {MessageGeneratorInterface} from '../Message/MessageGenerator/MessageGeneratorInterface';
+import {MessageKeys} from '../Message/MessageGenerator/MessageKeys';
 import {MessageHandlerInterface} from '../Message/MessageHandlerInterface';
 import {TelegramAdapterInterface} from './TelegramAdapterInterface';
 import {TelegramDataHandlerInterface} from './TelegramDataHandlerInterface';
@@ -37,7 +38,7 @@ export class TelegramDataHandler implements TelegramDataHandlerInterface {
     private handleMessage(): void {
         const transaction = this.messageHandler.prepareTransaction(this.text, false);
         this.budget.setTransaction(transaction);
-        this.telegram.message(this.chatId, this.messageGenerator.getMessage('expense'));
+        this.telegram.message(this.chatId, this.messageGenerator.getMessage(MessageKeys.Expense));
     }
 
     private handleCommand(): void {
@@ -62,21 +63,26 @@ export class TelegramDataHandler implements TelegramDataHandlerInterface {
     }
 
     private handleStart(): void {
-        this.telegram.message(this.chatId, this.messageGenerator.getMessage('start', {chatId: this.chatId.toString()}));
+        this.telegram.message(this.chatId, this.messageGenerator.getMessage(
+            MessageKeys.Start,
+            {
+                chatId: this.chatId.toString(),
+            },
+        ));
     }
 
     private handleToday(): void {
-        this.telegram.message(this.chatId, this.messageGenerator.getMessage('today'));
+        this.telegram.message(this.chatId, this.messageGenerator.getMessage(MessageKeys.TodayBudget));
     }
 
     private handleIncome(): void {
         const transaction = this.messageHandler.prepareTransaction(this.text, true);
         this.budget.setTransaction(transaction);
-        this.telegram.message(this.chatId, this.messageGenerator.getMessage('ok'));
+        this.telegram.message(this.chatId, this.messageGenerator.getMessage(MessageKeys.Ok));
     }
 
     private handleUndo(): void {
         this.budget.undo();
-        this.telegram.message(this.chatId, this.messageGenerator.getMessage('undo'));
+        this.telegram.message(this.chatId, this.messageGenerator.getMessage(MessageKeys.Undo));
     }
 }

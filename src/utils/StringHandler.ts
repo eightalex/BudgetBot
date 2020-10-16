@@ -1,5 +1,5 @@
 import {REGEX_NEW_LINE, REGEX_COMMAND} from '../constants/regex';
-import {DELIMITER_WORD} from '../constants/delimiter';
+import {DELIMITER_SPACE} from '../constants/delimiter';
 import {HandleError} from '../services/Error';
 import {StringHandlerInterface} from './StringHandlerInterface';
 
@@ -9,7 +9,7 @@ export class StringHandler implements StringHandlerInterface {
     }
 
     removeNewLine(str: string): string {
-        return str.replace(REGEX_NEW_LINE, DELIMITER_WORD);
+        return str.replace(REGEX_NEW_LINE, DELIMITER_SPACE);
     }
 
     capitalize(str: string): string {
@@ -32,5 +32,9 @@ export class StringHandler implements StringHandlerInterface {
         }
 
         return commands[INDEX_FIRST];
+    }
+
+    compose(strings: string[]): string {
+        return strings.join('');
     }
 }

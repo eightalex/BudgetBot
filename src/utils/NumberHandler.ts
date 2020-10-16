@@ -53,4 +53,8 @@ export class NumberHandler implements NumberHandlerInterface {
 
         return parseInt(result[POSITION_VALUE]);
     }
+
+    getRandomIndex(length: number): number {
+        return Math.random() * (length - 1) | 0;
+    }
 }
