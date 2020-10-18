@@ -3,7 +3,7 @@ import {BudgetInterface} from './BudgetInterface';
 import {SpreadsheetAppAdapterInterface} from './SpreadsheetAppAdapterInterface';
 import {MessageHandlerInterface} from './Message/MessageHandlerInterface';
 import {cells} from '../config/cells';
-import {DELIMITER} from "../constants/delimiter";
+import {DELIMITER} from '../constants/delimiter';
 
 export class Budget implements BudgetInterface {
     constructor(
