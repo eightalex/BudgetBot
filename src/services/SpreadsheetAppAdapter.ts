@@ -1,3 +1,4 @@
+import {DateHandlerInterface} from '../utils/DateHandlerInterface';
 import {SpreadsheetAppAdapterInterface} from './SpreadsheetAppAdapterInterface';
 import {SearchError} from './Error';
 import {PositionRow} from '../constants/PositionRow';
@@ -5,14 +6,14 @@ import {CellType} from '../types/Spreadsheet/CellType';
 
 export class SpreadsheetAppAdapter implements SpreadsheetAppAdapterInterface {
     private sheet: GoogleAppsScript.Spreadsheet.Sheet;
-    private dateHandler: any;
+    private dateHandler: DateHandlerInterface;
 
     private gettersMap = {
         [PositionRow.CurrentDay]: this.getCurrentDayRowPosition.bind(this),
         [PositionRow.EndOfWeek]: this.getEndOfWeekRowPosition.bind(this),
     };
 
-    constructor(dateHandler) {
+    constructor(dateHandler: DateHandlerInterface) {
         this.sheet = SpreadsheetApp.getActiveSheet();
         this.dateHandler = dateHandler;
     }
@@ -35,32 +36,28 @@ export class SpreadsheetAppAdapter implements SpreadsheetAppAdapterInterface {
             this.sheet.getLastRow()
         ).getValues();
 
-        for (let i = 0; i < columnValues.length; i++) {
-            if (columnValues[i].toString() === searchString.toString()) {
-                return Number(startRow) + i;
-            }
+        const index = columnValues.findIndex(value => value.toString() === searchString.toString());
+
+        if (index === -1) {
+            throw new SearchError('Row position not found');
         }
 
-        throw new SearchError('Row position does not funded');
+        return index + startRow;
     }
 
     private getCurrentDayRowPosition(): number {
-        const today = this.dateHandler.create();
-
         return this.getRowPosition(
             Number(process.env.POSITION_ROW_START),
             Number(process.env.POSITION_COLUMN_DATES),
-            today,
+            this.dateHandler.create(),
         );
     }
 
     private getEndOfWeekRowPosition(): number {
-        const weekEnd = this.dateHandler.getWeekEnd();
-
         return this.getRowPosition(
             Number(process.env.POSITION_ROW_START),
             Number(process.env.POSITION_COLUMN_DATES),
-            weekEnd,
+            this.dateHandler.getWeekEnd(),
         );
     }
 }
