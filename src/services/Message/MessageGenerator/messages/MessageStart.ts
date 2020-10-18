@@ -1,4 +1,4 @@
-import {DELIMITER_SPACE} from '../../../../constants/delimiter';
+import {DELIMITER} from '../../../../constants/delimiter';
 import {messages} from '../../../../data/messages';
 import {MessageOptionsType} from '../../../../types/MessageOptionsType';
 import {AbstractMessage} from '../AbstractMessage';
@@ -11,7 +11,7 @@ export class MessageStart extends AbstractMessage implements MessageInterface {
 
         return this.compose([
             this.getRandomMessage(messages.start),
-            DELIMITER_SPACE,
+            DELIMITER.SPACE,
             chatId,
         ]);
     }

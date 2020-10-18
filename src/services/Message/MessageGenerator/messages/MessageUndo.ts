@@ -1,4 +1,4 @@
-import {DELIMITER_DOT} from '../../../../constants/delimiter';
+import {DELIMITER} from '../../../../constants/delimiter';
 import {messages} from '../../../../data/messages';
 import {AbstractMessage} from '../AbstractMessage';
 import {MessageInterface} from '../MessageInterface';
@@ -9,7 +9,7 @@ export class MessageUndo extends AbstractMessage implements MessageInterface {
     getMessage(messagePool: MessagePoolInterface): string {
         return this.compose([
             this.getRandomMessage(messages.undo),
-            DELIMITER_DOT,
+            DELIMITER.DOT,
             messagePool.get(MessageKeys.TodayBudget).getMessage(),
         ]);
     }

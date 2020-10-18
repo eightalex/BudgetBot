@@ -1,4 +1,4 @@
-import {DELIMITER_DOT} from '../../../../constants/delimiter';
+import {DELIMITER} from '../../../../constants/delimiter';
 import {AbstractMessage} from '../AbstractMessage';
 import {MessageInterface} from '../MessageInterface';
 import {MessageKeys} from '../MessageKeys';
@@ -8,7 +8,7 @@ export class MessageExpense extends AbstractMessage implements MessageInterface 
     getMessage(messagePool: MessagePoolInterface): string {
         return this.compose([
             messagePool.get(MessageKeys.Ok).getMessage(),
-            DELIMITER_DOT,
+            DELIMITER.DOT,
             messagePool.get(MessageKeys.TodayBudget).getMessage(),
         ]);
     }
