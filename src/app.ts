@@ -39,7 +39,7 @@ const telegramDataHandler = new TelegramDataHandler(telegram, budget, messageGen
 const requestHandler = new RequestHandler(monoDataHandler, telegramDataHandler, objectHandler);
 
 const messageHelpers: MessageHelpersType = {
-    budget,
+    spreadsheetAppAdapter,
     numberHandler,
     stringHandler,
 };

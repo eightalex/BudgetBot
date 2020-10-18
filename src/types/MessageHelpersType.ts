@@ -1,9 +1,9 @@
-import {BudgetInterface} from '../services/BudgetInterface';
+import {SpreadsheetAppAdapterInterface} from '../services/SpreadsheetAppAdapterInterface';
 import {NumberHandlerInterface} from '../utils/NumberHandlerInterface';
 import {StringHandlerInterface} from '../utils/StringHandlerInterface';
 
 export type MessageHelpersType = {
-    budget: BudgetInterface
+    spreadsheetAppAdapter: SpreadsheetAppAdapterInterface
     numberHandler: NumberHandlerInterface
     stringHandler: StringHandlerInterface
 }

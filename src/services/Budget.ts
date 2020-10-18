@@ -11,18 +11,6 @@ export class Budget implements BudgetInterface {
         private readonly messageHandler: MessageHandlerInterface,
     ) {}
 
-    getTodayBudget(): string {
-        return this.spreadsheetAppAdapter.getCell(cells.balance).getDisplayValue();
-    }
-
-    getBudgetForWeek(): string {
-        return this.spreadsheetAppAdapter.getCell(cells.weekBudget).getDisplayValue();
-    }
-
-    getBudgetForMonth(): string {
-        return this.spreadsheetAppAdapter.getCell(cells.monthBudget).getDisplayValue();
-    }
-
     setTransaction(transaction: TransactionType): void {
         const commentCell = this.spreadsheetAppAdapter.getCell(cells.comments);
         const valueCell = this.spreadsheetAppAdapter.getCell(cells.value);

@@ -32,4 +32,4 @@ export const cells: {[key: string]: CellType} = {
             column: Number(process.env.POSITION_COLUMN_BUDGET),
         },
     },
-};
+} as const;

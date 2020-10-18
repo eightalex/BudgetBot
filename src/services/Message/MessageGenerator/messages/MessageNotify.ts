@@ -1,3 +1,4 @@
+import {cells} from '../../../../config/cells';
 import {DELIMITER} from '../../../../constants/delimiter';
 import {messages} from '../../../../data/messages';
 import {AbstractMessage} from '../AbstractMessage';
@@ -11,14 +12,14 @@ export class MessageNotify extends AbstractMessage implements MessageInterface {
             DELIMITER.NEW_LINE,
             this.getRandomMessage(messages.week),
             DELIMITER.SPACE,
-            this.messageHelpers.budget.getBudgetForWeek(),
+            this.messageHelpers.spreadsheetAppAdapter.getCell(cells.weekBudget).getDisplayValue(),
             DELIMITER.SPACE,
             this.currency,
             DELIMITER.DOT,
             DELIMITER.NEW_LINE,
             this.getRandomMessage(messages.month),
             DELIMITER.SPACE,
-            this.messageHelpers.budget.getBudgetForMonth(),
+            this.messageHelpers.spreadsheetAppAdapter.getCell(cells.monthBudget).getDisplayValue(),
             DELIMITER.SPACE,
             this.currency,
         ]);

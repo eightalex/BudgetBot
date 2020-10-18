@@ -1,3 +1,4 @@
+import {cells} from '../../../../config/cells';
 import {DELIMITER} from '../../../../constants/delimiter';
 import {messages} from '../../../../data/messages';
 import {AbstractMessage} from '../AbstractMessage';
@@ -8,7 +9,7 @@ export class MessageTodayBudget extends AbstractMessage implements MessageInterf
         return this.compose([
             this.getRandomMessage(messages.today),
             DELIMITER.SPACE,
-            this.messageHelpers.budget.getTodayBudget(),
+            this.messageHelpers.spreadsheetAppAdapter.getCell(cells.balance).getDisplayValue(),
             DELIMITER.SPACE,
             this.currency,
         ]);
