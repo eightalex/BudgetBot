@@ -41,10 +41,7 @@ export class Budget implements BudgetInterface {
         commentCell.setValue(currentComment + inputComment);
     }
 
-    /**
-     * Undo last action
-     */
-    undo(): void {
+    undoLastTransaction(): void {
         const commentCell = this.spreadsheetAppAdapter.getCell(cells.comments);
         const valueCell = this.spreadsheetAppAdapter.getCell(cells.value);
 

@@ -58,7 +58,7 @@ export class TelegramDataHandler implements TelegramDataHandlerInterface {
                 this.handleUndo();
                 break;
             default:
-                throw new HandleError('Something went wrong');
+                throw new HandleError('Invalid command');
         }
     }
 
@@ -82,7 +82,7 @@ export class TelegramDataHandler implements TelegramDataHandlerInterface {
     }
 
     private handleUndo(): void {
-        this.budget.undo();
+        this.budget.undoLastTransaction();
         this.telegram.message(this.chatId, this.messageGenerator.getMessage(MessageKeys.Undo));
     }
 }

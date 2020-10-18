@@ -5,5 +5,5 @@ export interface BudgetInterface {
     getBudgetForWeek(): string
     getBudgetForMonth(): string
     setTransaction(transaction: TransactionType): void
-    undo(): void
+    undoLastTransaction(): void
 }
