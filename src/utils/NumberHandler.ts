@@ -1,3 +1,4 @@
+import {HandleError} from '../services/Error';
 import {NumberHandlerInterface} from './NumberHandlerInterface';
 import {REGEX_COMMAS, REGEX_DIGITS_IN_BRACES} from '../constants/regex';
 
@@ -33,8 +34,7 @@ export class NumberHandler implements NumberHandlerInterface {
         }
 
         if (!this.isFinite(value)) {
-            // TODO make error
-            return 0;
+            throw new HandleError(`Can't prepare value. Value isn't finite number`);
         }
 
         return makeNegative
@@ -47,8 +47,7 @@ export class NumberHandler implements NumberHandlerInterface {
         const result = REGEX_DIGITS_IN_BRACES.exec(str);
 
         if (result === null) {
-            // TODO make error
-            return 0;
+            throw new HandleError(`Can't get value from braces`);
         }
 
         return parseInt(result[POSITION_VALUE]);
