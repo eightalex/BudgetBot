@@ -23,7 +23,11 @@ export class MonoDataHandler implements MonoDataHandlerInterface {
     handle(contents: MonoType.WebHook): void {
         const accountID = contents.data.account;
 
-        if (this.isSpecificAccount() && !this.isRequiredAccount(accountID)) {
+        if (this.isSpecificAccount()) {
+            throw new HandleError('Skip transaction from another card');
+        }
+
+        if (!this.isRequiredAccount(accountID)) {
             throw new HandleError('Problem with handle mono account');
         }
 
