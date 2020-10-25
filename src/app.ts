@@ -10,8 +10,7 @@ import {MessageUndo} from './services/Message/MessageGenerator/messages/MessageU
 import {MessageHandler} from './services/Message/MessageHandler';
 import {MonoAdapter} from './services/Mono/MonoAdapter';
 import {MonoDataHandler} from './services/Mono/MonoDataHandler';
-import {TelegramAdapter} from './services/Telegram/TelegramAdapter';
-import {TelegramDataHandler} from './services/Telegram/TelegramDataHandler';
+import * as Telegram from './services/Telegram';
 import {Budget} from './services/Budget';
 import {RequestHandler} from './services/RequestHandler';
 import {SpreadsheetAppAdapter} from './services/SpreadsheetAppAdapter';
@@ -27,7 +26,7 @@ const objectHandler = new ObjectHandler();
 const stringHandler = new StringHandler();
 
 const mono = new MonoAdapter();
-const telegram = new TelegramAdapter();
+const telegram = new Telegram.Adapter();
 
 const spreadsheetAppAdapter = new SpreadsheetAppAdapter(dateHandler);
 const messageHandler = new MessageHandler(numberHandler, stringHandler);
@@ -35,7 +34,7 @@ const budget = new Budget(spreadsheetAppAdapter, messageHandler);
 const monoDataHandler = new MonoDataHandler(budget, numberHandler, messageHandler);
 const messagePool = new MessagePool();
 const messageGenerator = new MessageGenerator(messagePool);
-const telegramDataHandler = new TelegramDataHandler(telegram, budget, messageGenerator, messageHandler, stringHandler);
+const telegramDataHandler = new Telegram.DataHandler(telegram, budget, messageGenerator, messageHandler, stringHandler);
 const requestHandler = new RequestHandler(monoDataHandler, telegramDataHandler, objectHandler);
 
 const messageHelpers: MessageHelpersType = {

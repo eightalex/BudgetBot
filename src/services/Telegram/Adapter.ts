@@ -1,6 +1,6 @@
-import {TelegramAdapterInterface} from './TelegramAdapterInterface';
+import {AdapterInterface} from './AdapterInterface';
 
-export class TelegramAdapter implements TelegramAdapterInterface {
+export class Adapter implements AdapterInterface {
     private readonly token = process.env.TELEGRAM_TOKEN;
     private readonly googleAppUrl = process.env.GOOGLE_APP_URL;
     private readonly apiUrl = `https://api.telegram.org/bot${this.token}/`;

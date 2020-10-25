@@ -5,15 +5,15 @@ import {HandleError} from '../Error';
 import {MessageGeneratorInterface} from '../Message/MessageGenerator/MessageGeneratorInterface';
 import {MessageKeys} from '../Message/MessageGenerator/MessageKeys';
 import {MessageHandlerInterface} from '../Message/MessageHandlerInterface';
-import {TelegramAdapterInterface} from './TelegramAdapterInterface';
-import {TelegramDataHandlerInterface} from './TelegramDataHandlerInterface';
+import {AdapterInterface} from './AdapterInterface';
+import {DataHandlerInterface} from './DataHandlerInterface';
 
-export class TelegramDataHandler implements TelegramDataHandlerInterface {
+export class DataHandler implements DataHandlerInterface {
     private chatId: number = 0;
     private text: string = '';
 
     constructor(
-        private readonly telegram: TelegramAdapterInterface,
+        private readonly telegram: AdapterInterface,
         private readonly budget: BudgetInterface,
         private readonly messageGenerator: MessageGeneratorInterface,
         private readonly messageHandler: MessageHandlerInterface,
