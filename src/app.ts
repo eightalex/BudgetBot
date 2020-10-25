@@ -27,6 +27,7 @@ const stringHandler = new StringHandler();
 
 const mono = new MonoAdapter();
 const telegram = new Telegram.Adapter();
+const commandFactory = new Telegram.CommandFactory();
 
 const spreadsheetAppAdapter = new SpreadsheetAppAdapter(dateHandler);
 const messageHandler = new MessageHandler(numberHandler, stringHandler);
@@ -34,7 +35,7 @@ const budget = new Budget(spreadsheetAppAdapter, messageHandler);
 const monoDataHandler = new MonoDataHandler(budget, numberHandler, messageHandler);
 const messagePool = new MessagePool();
 const messageGenerator = new MessageGenerator(messagePool);
-const telegramDataHandler = new Telegram.DataHandler(telegram, budget, messageGenerator, messageHandler, stringHandler);
+const telegramDataHandler = new Telegram.DataHandler(commandFactory, telegram, budget, messageGenerator, messageHandler, stringHandler);
 const requestHandler = new RequestHandler(monoDataHandler, telegramDataHandler, objectHandler);
 
 const messageHelpers: MessageHelpersType = {

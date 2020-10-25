@@ -1,4 +1,5 @@
 import * as TelegramBot from 'node-telegram-bot-api';
+import {CommandDataType} from '../../types/Telegram/CommandDataType';
 import {StringHandlerInterface} from '../../utils/StringHandlerInterface';
 import {BudgetInterface} from '../BudgetInterface';
 import {HandleError} from '../Error';
@@ -6,13 +7,17 @@ import {MessageGeneratorInterface} from '../Message/MessageGenerator/MessageGene
 import {MessageKeys} from '../Message/MessageGenerator/MessageKeys';
 import {MessageHandlerInterface} from '../Message/MessageHandlerInterface';
 import {AdapterInterface} from './AdapterInterface';
+import {CommandFactoryInterface} from './CommandFactoryInterface';
 import {DataHandlerInterface} from './DataHandlerInterface';
 
 export class DataHandler implements DataHandlerInterface {
-    private chatId: number = 0;
-    private text: string = '';
+    private data: CommandDataType = {
+        chatId: 0,
+        text: '',
+    };
 
     constructor(
+        private readonly commandFactory: CommandFactoryInterface,
         private readonly telegram: AdapterInterface,
         private readonly budget: BudgetInterface,
         private readonly messageGenerator: MessageGeneratorInterface,
@@ -25,8 +30,10 @@ export class DataHandler implements DataHandlerInterface {
             throw new HandleError('Telegram message is empty');
         }
 
-        this.chatId = contents.message.chat.id;
-        this.text = contents.message.text;
+        this.data = {
+            chatId: contents.message.chat.id,
+            text: contents.message.text,
+        };
 
         if (contents.message.entities) {
             this.handleCommand();
@@ -36,53 +43,18 @@ export class DataHandler implements DataHandlerInterface {
     }
 
     private handleMessage(): void {
-        const transaction = this.messageHandler.prepareTransaction(this.text, false);
+        const transaction = this.messageHandler.prepareTransaction(this.data.text, false);
         this.budget.setTransaction(transaction);
-        this.telegram.message(this.chatId, this.messageGenerator.getMessage(MessageKeys.Expense));
+        this.telegram.message(this.data.chatId, this.messageGenerator.getMessage(MessageKeys.Expense));
     }
 
     private handleCommand(): void {
-        const command = this.stringHandler.getCommand(this.text);
-
-        switch (command) {
-            case '/start':
-                this.handleStart();
-                break;
-            case '/today':
-                this.handleToday();
-                break;
-            case '/income':
-                this.handleIncome();
-                break;
-            case '/undo':
-                this.handleUndo();
-                break;
-            default:
-                throw new HandleError('Invalid command');
-        }
-    }
-
-    private handleStart(): void {
-        this.telegram.message(this.chatId, this.messageGenerator.getMessage(
-            MessageKeys.Start,
-            {
-                chatId: this.chatId.toString(),
-            },
-        ));
-    }
-
-    private handleToday(): void {
-        this.telegram.message(this.chatId, this.messageGenerator.getMessage(MessageKeys.TodayBudget));
-    }
-
-    private handleIncome(): void {
-        const transaction = this.messageHandler.prepareTransaction(this.text, true);
-        this.budget.setTransaction(transaction);
-        this.telegram.message(this.chatId, this.messageGenerator.getMessage(MessageKeys.Ok));
-    }
-
-    private handleUndo(): void {
-        this.budget.undoLastTransaction();
-        this.telegram.message(this.chatId, this.messageGenerator.getMessage(MessageKeys.Undo));
+        const command = this.stringHandler.getCommand(this.data.text);
+        this.commandFactory.create(command).handle({
+            telegram: this.telegram,
+            budget: this.budget,
+            messageGenerator: this.messageGenerator,
+            messageHandler: this.messageHandler,
+        }, this.data);
     }
 }
