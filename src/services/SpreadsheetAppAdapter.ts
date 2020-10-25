@@ -1,7 +1,7 @@
 import {DateHandlerInterface} from '../utils/DateHandlerInterface';
 import {SpreadsheetAppAdapterInterface} from './SpreadsheetAppAdapterInterface';
 import {SearchError} from './Error';
-import {PositionRow} from '../constants/PositionRow';
+import {PositionRow} from '../config/positionRow';
 import {CellType} from '../types/Spreadsheet/CellType';
 
 export class SpreadsheetAppAdapter implements SpreadsheetAppAdapterInterface {

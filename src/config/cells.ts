@@ -1,5 +1,5 @@
 import {CellType} from '../types/Spreadsheet/CellType';
-import {PositionRow} from '../constants/PositionRow';
+import {PositionRow} from './positionRow';
 
 export const cells: {[key: string]: CellType} = {
     comments: {
