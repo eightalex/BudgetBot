@@ -22,4 +22,9 @@ export class DateHandler implements DateHandlerInterface {
 
         return new Date(today.setDate(dayWeekEnd));
     }
+
+    addDays(date: Date, days: number): Date {
+        date = date || this.create();
+        return new Date(date.setDate(date.getDate() + days));
+    }
 }
