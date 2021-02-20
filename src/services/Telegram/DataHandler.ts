@@ -1,4 +1,5 @@
 import * as TelegramBot from 'node-telegram-bot-api';
+import {STRING} from '../../constants/string';
 import {CommandDataType} from '../../types/Telegram/CommandDataType';
 import {StringHandlerInterface} from '../../utils/StringHandlerInterface';
 import {BudgetInterface} from '../BudgetInterface';
@@ -13,7 +14,7 @@ import {DataHandlerInterface} from './DataHandlerInterface';
 export class DataHandler implements DataHandlerInterface {
     private data: CommandDataType = {
         chatId: 0,
-        text: '',
+        text: STRING.EMPTY,
     };
 
     constructor(

@@ -1,11 +1,12 @@
 import {REGEX_NEW_LINE, REGEX_COMMAND} from '../constants/regex';
 import {DELIMITER} from '../constants/delimiter';
+import {STRING} from '../constants/string';
 import {HandleError} from '../services/Error';
 import {StringHandlerInterface} from './StringHandlerInterface';
 
 export class StringHandler implements StringHandlerInterface {
     removeCommand(str: string): string {
-        return str.replace(REGEX_COMMAND, '');
+        return str.replace(REGEX_COMMAND, STRING.EMPTY);
     }
 
     removeNewLine(str: string): string {
@@ -35,6 +36,6 @@ export class StringHandler implements StringHandlerInterface {
     }
 
     compose(strings: string[]): string {
-        return strings.join('');
+        return strings.join(STRING.EMPTY);
     }
 }

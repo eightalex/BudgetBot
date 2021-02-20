@@ -1,3 +1,4 @@
+import {STRING} from '../constants/string';
 import {TransactionType} from '../types/TransactionType';
 import {BudgetInterface} from './BudgetInterface';
 import {SpreadsheetAppAdapterInterface} from './SpreadsheetAppAdapterInterface';
@@ -16,12 +17,12 @@ export class Budget implements BudgetInterface {
         const valueCell = this.spreadsheetAppAdapter.getCell(cells.value);
 
         const currentValue = parseInt(valueCell.getDisplayValue()) || 0;
-        const currentComment = commentCell.getDisplayValue() || '';
+        const currentComment = commentCell.getDisplayValue() || STRING.EMPTY;
 
         let inputValue = transaction.value;
         let inputComment = transaction.comment;
 
-        if (currentComment.length) {
+        if (currentComment !== STRING.EMPTY) {
             inputComment = DELIMITER.COMMA + inputComment;
         }
 
@@ -34,7 +35,7 @@ export class Budget implements BudgetInterface {
         const valueCell = this.spreadsheetAppAdapter.getCell(cells.value);
 
         const currentValue = parseInt(valueCell.getDisplayValue()) || 0;
-        const currentComment = commentCell.getDisplayValue() || '';
+        const currentComment = commentCell.getDisplayValue() || STRING.EMPTY;
 
         const undo = this.messageHandler.prepareUndo(currentValue, currentComment);
 

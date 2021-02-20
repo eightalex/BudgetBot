@@ -1,3 +1,4 @@
+import {STRING} from '../constants/string';
 import {HandleError} from '../services/Error';
 import {NumberHandlerInterface} from './NumberHandlerInterface';
 import {REGEX_COMMAS, REGEX_DIGITS_IN_BRACES} from '../constants/regex';
@@ -29,7 +30,7 @@ export class NumberHandler implements NumberHandlerInterface {
 
     prepareValue(value: string | number, makeNegative: boolean = false): number {
         if (typeof value === 'string') {
-            value = value.replace(REGEX_COMMAS, '');
+            value = value.replace(REGEX_COMMAS, STRING.EMPTY);
             value = parseFloat(value);
         }
 
