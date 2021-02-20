@@ -1,6 +1,5 @@
 import {NumberHandlerInterface} from '../../utils/NumberHandlerInterface';
 import {BudgetInterface} from '../BudgetInterface';
-import {HandleError} from '../Error';
 import {MessageHandlerInterface} from '../Message/MessageHandlerInterface';
 import {MonoDataHandlerInterface} from './MonoDataHandlerInterface';
 import {MonoType} from '../../types/Mono';
@@ -24,7 +23,7 @@ export class MonoDataHandler implements MonoDataHandlerInterface {
         const accountID = contents.data.account;
 
         if (this.isSpecificAccount() && !this.isRequiredAccount(accountID)) {
-            throw new HandleError('Skip transaction handling');
+            return;
         }
 
         const {amount, description} = contents.data.statementItem;
