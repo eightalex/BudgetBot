@@ -1,10 +1,9 @@
+import {INDEX_NOT_FOUND} from '~/constants';
 import {DateHandlerInterface} from '~/utils/DateHandlerInterface';
 import {SpreadsheetAppAdapterInterface} from './SpreadsheetAppAdapterInterface';
 import {SearchError} from './Error';
 import {PositionRow} from '~/config/positionRow';
 import {CellType} from '~/types/Spreadsheet/CellType';
-
-const NOT_FOUND = -1;
 
 export class SpreadsheetAppAdapter implements SpreadsheetAppAdapterInterface {
     private sheet: GoogleAppsScript.Spreadsheet.Sheet;
@@ -40,8 +39,8 @@ export class SpreadsheetAppAdapter implements SpreadsheetAppAdapterInterface {
 
         const index = columnValues.findIndex(value => value.toString() === searchString);
 
-        if (index === NOT_FOUND) {
-            return NOT_FOUND;
+        if (index === INDEX_NOT_FOUND) {
+            return INDEX_NOT_FOUND;
         }
 
         return index + startRow;
@@ -54,7 +53,7 @@ export class SpreadsheetAppAdapter implements SpreadsheetAppAdapterInterface {
             String(this.dateHandler.create()),
         );
 
-        if (position === NOT_FOUND) {
+        if (position === INDEX_NOT_FOUND) {
             throw new SearchError('"CurrentDay" row position not found');
         }
 
@@ -63,10 +62,10 @@ export class SpreadsheetAppAdapter implements SpreadsheetAppAdapterInterface {
 
     private getEndOfWeekRowPosition(): number {
         let weekEnd = this.dateHandler.getWeekEnd();
-        let position = NOT_FOUND;
+        let position = INDEX_NOT_FOUND;
         let attempts = 6;
 
-        while (position === NOT_FOUND && --attempts > 0) {
+        while (position === INDEX_NOT_FOUND && --attempts > 0) {
             position = this.getRowPosition(
                 Number(process.env.POSITION_ROW_START),
                 Number(process.env.POSITION_COLUMN_DATES),
@@ -75,7 +74,7 @@ export class SpreadsheetAppAdapter implements SpreadsheetAppAdapterInterface {
             weekEnd = this.dateHandler.addDays(weekEnd, -1);
         }
 
-        if (position === NOT_FOUND) {
+        if (position === INDEX_NOT_FOUND) {
             throw new SearchError('"EndOfWeek" row position not found');
         }
 
