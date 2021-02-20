@@ -1,5 +1,4 @@
-export const messages = Object.freeze({
-
+export const messages = {
     start: [
         'Ну привет. Ваш chat id:',
     ],
@@ -64,5 +63,4 @@ export const messages = Object.freeze({
         'Всего вы ещё можете потратить',
         'Ещё можно потратить до конца месяца',
     ],
-
-});
+} as const;
