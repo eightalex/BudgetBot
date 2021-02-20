@@ -1,6 +1,6 @@
-import {cells} from '../../../../config/cells';
-import {DELIMITER} from '../../../../constants/delimiter';
-import {messages} from '../../../../data/messages';
+import {cells} from '~/config/cells';
+import {DELIMITER} from '~/constants/delimiter';
+import {messages} from '~/data/messages';
 import {AbstractMessage} from '../AbstractMessage';
 import {MessageInterface} from '../MessageInterface';
 

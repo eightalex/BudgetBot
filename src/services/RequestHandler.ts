@@ -1,4 +1,4 @@
-import {ObjectHandlerInterface} from '../utils/ObjectHandlerInterface';
+import {ObjectHandlerInterface} from '~/utils/ObjectHandlerInterface';
 import {MonoDataHandlerInterface} from './Mono/MonoDataHandlerInterface';
 import {RequestHandlerInterface} from './RequestHandlerInterface';
 import {HandleError} from './Error';

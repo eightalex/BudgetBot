@@ -1,4 +1,4 @@
-import {MessageOptionsType} from '../../../types/MessageOptionsType';
+import {MessageOptionsType} from '~/types/MessageOptionsType';
 import {MessageKeys} from './MessageKeys';
 
 export interface MessageGeneratorInterface {

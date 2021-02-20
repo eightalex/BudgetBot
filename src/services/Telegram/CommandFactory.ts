@@ -1,8 +1,8 @@
-import {CommandConstructorType} from '../../types/Telegram/CommandConstructorType';
-import {HandleError} from '../Error';
+import {CommandConstructorType} from '~/types/Telegram/CommandConstructorType';
+import {HandleError} from '~/services/Error';
 import {CommandFactoryInterface} from './CommandFactoryInterface';
 import {CommandInterface} from './CommandInterface';
-import {Commands as CommandType} from '../../config/commands';
+import {Commands as CommandType} from '~/config/commands';
 import * as Commands from './Commands';
 
 const commandsMap = new Map<string, CommandConstructorType>()

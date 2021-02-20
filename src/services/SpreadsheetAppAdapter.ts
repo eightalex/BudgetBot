@@ -1,8 +1,8 @@
-import {DateHandlerInterface} from '../utils/DateHandlerInterface';
+import {DateHandlerInterface} from '~/utils/DateHandlerInterface';
 import {SpreadsheetAppAdapterInterface} from './SpreadsheetAppAdapterInterface';
 import {SearchError} from './Error';
-import {PositionRow} from '../config/positionRow';
-import {CellType} from '../types/Spreadsheet/CellType';
+import {PositionRow} from '~/config/positionRow';
+import {CellType} from '~/types/Spreadsheet/CellType';
 
 const NOT_FOUND = -1;
 

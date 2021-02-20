@@ -1,5 +1,5 @@
-import {DELIMITER} from '../../../../constants/delimiter';
-import {messages} from '../../../../data/messages';
+import {DELIMITER} from '~/constants/delimiter';
+import {messages} from '~/data/messages';
 import {AbstractMessage} from '../AbstractMessage';
 import {MessageInterface} from '../MessageInterface';
 import {MessageKeys} from '../MessageKeys';

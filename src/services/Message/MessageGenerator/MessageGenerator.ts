@@ -1,4 +1,4 @@
-import {MessageOptionsType} from '../../../types/MessageOptionsType';
+import {MessageOptionsType} from '~/types/MessageOptionsType';
 import {MessageGeneratorInterface} from './MessageGeneratorInterface';
 import {MessageKeys} from './MessageKeys';
 import {MessagePoolInterface} from './MessagePoolInterface';

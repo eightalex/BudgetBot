@@ -1,11 +1,11 @@
-import {STRING} from '../constants/string';
-import {TransactionType} from '../types/TransactionType';
+import {STRING} from '~/constants/string';
+import {TransactionType} from '~/types/TransactionType';
 import {BudgetInterface} from './BudgetInterface';
 import {HandleError} from './Error';
 import {SpreadsheetAppAdapterInterface} from './SpreadsheetAppAdapterInterface';
 import {MessageHandlerInterface} from './Message/MessageHandlerInterface';
-import {cells} from '../config/cells';
-import {DELIMITER} from '../constants/delimiter';
+import {cells} from '~/config/cells';
+import {DELIMITER} from '~/constants/delimiter';
 
 export class Budget implements BudgetInterface {
     constructor(

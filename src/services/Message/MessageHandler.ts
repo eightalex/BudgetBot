@@ -1,10 +1,10 @@
-import {MONO} from '../../config/mono';
-import {REGEX_DIGITS, REGEX_WORDS} from '../../constants/regex';
-import {DELIMITER} from '../../constants/delimiter';
-import {TransactionType} from '../../types/TransactionType';
-import {NumberHandlerInterface} from '../../utils/NumberHandlerInterface';
-import {StringHandlerInterface} from '../../utils/StringHandlerInterface';
-import {HandleError} from '../Error';
+import {MONO} from '~/config/mono';
+import {REGEX_DIGITS, REGEX_WORDS} from '~/constants/regex';
+import {DELIMITER} from '~/constants/delimiter';
+import {TransactionType} from '~/types/TransactionType';
+import {NumberHandlerInterface} from '~/utils/NumberHandlerInterface';
+import {StringHandlerInterface} from '~/utils/StringHandlerInterface';
+import {HandleError} from '~/services/Error';
 import {MessageHandlerInterface} from './MessageHandlerInterface';
 
 export class MessageHandler implements MessageHandlerInterface {

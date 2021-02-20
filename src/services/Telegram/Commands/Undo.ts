@@ -1,5 +1,5 @@
-import {MessageKeys} from '../../Message/MessageGenerator/MessageKeys';
-import {CommandInterface} from '../CommandInterface';
+import {MessageKeys} from '~/services/Message/MessageGenerator/MessageKeys';
+import {CommandInterface} from '~/services/Telegram/CommandInterface';
 
 export class Undo implements CommandInterface {
     handle(dependencies, data): void {

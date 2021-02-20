@@ -1,4 +1,4 @@
-import {MessageHelpersType} from '../../../types/MessageHelpersType';
+import {MessageHelpersType} from '~/types/MessageHelpersType';
 
 export class AbstractMessage {
     protected readonly currency = process.env.CURRENCY_ACRONYM as string;

@@ -1,4 +1,4 @@
-import {TransactionType} from '../../types/TransactionType';
+import {TransactionType} from '~/types/TransactionType';
 
 export interface MessageHandlerInterface {
     prepareComment(comment: string, value: number, options?: {isTelegramMessage?: boolean}): string

@@ -1,4 +1,4 @@
-import {PositionRow} from '../../config/positionRow';
+import {PositionRow} from '~/config/positionRow';
 
 export type CellType = {
     position: {

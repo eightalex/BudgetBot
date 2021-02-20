@@ -1,4 +1,4 @@
-import {TransactionType} from '../types/TransactionType';
+import {TransactionType} from '~/types/TransactionType';
 
 export interface BudgetInterface {
     setTransaction(transaction: TransactionType): void

@@ -1,4 +1,4 @@
-import {DELIMITER} from '../../../../constants/delimiter';
+import {DELIMITER} from '~/constants/delimiter';
 import {AbstractMessage} from '../AbstractMessage';
 import {MessageInterface} from '../MessageInterface';
 import {MessageKeys} from '../MessageKeys';

@@ -1,4 +1,4 @@
-import {HandleError} from '../../Error';
+import {HandleError} from '~/services/Error';
 import {MessageInterface} from './MessageInterface';
 import {MessageKeys} from './MessageKeys';
 import {MessagePoolInterface} from './MessagePoolInterface';

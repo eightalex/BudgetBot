@@ -1,8 +1,8 @@
-import {NumberHandlerInterface} from '../../utils/NumberHandlerInterface';
-import {BudgetInterface} from '../BudgetInterface';
-import {MessageHandlerInterface} from '../Message/MessageHandlerInterface';
+import {NumberHandlerInterface} from '~/utils/NumberHandlerInterface';
+import {BudgetInterface} from '~/services/BudgetInterface';
+import {MessageHandlerInterface} from '~/services/Message/MessageHandlerInterface';
 import {MonoDataHandlerInterface} from './MonoDataHandlerInterface';
-import {MonoType} from '../../types/Mono';
+import {MonoType} from '~/types/Mono';
 
 export class MonoDataHandler implements MonoDataHandlerInterface {
     constructor(

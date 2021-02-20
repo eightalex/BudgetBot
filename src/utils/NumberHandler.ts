@@ -1,7 +1,7 @@
-import {STRING} from '../constants/string';
-import {HandleError} from '../services/Error';
+import {STRING} from '~/constants/string';
+import {HandleError} from '~/services/Error';
 import {NumberHandlerInterface} from './NumberHandlerInterface';
-import {REGEX_COMMAS, REGEX_DIGITS_IN_BRACES} from '../constants/regex';
+import {REGEX_COMMAS, REGEX_DIGITS_IN_BRACES} from '~/constants/regex';
 
 export class NumberHandler implements NumberHandlerInterface {
     isFinite(value: any): boolean {
