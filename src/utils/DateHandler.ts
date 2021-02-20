@@ -24,7 +24,6 @@ export class DateHandler implements DateHandlerInterface {
     }
 
     addDays(date: Date, days: number): Date {
-        date = date || this.create();
         return new Date(date.setDate(date.getDate() + days));
     }
 }
