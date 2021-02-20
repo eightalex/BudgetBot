@@ -26,12 +26,12 @@ export class MonoDataHandler implements MonoDataHandlerInterface {
             return;
         }
 
-        const {amount, description} = contents.data.statementItem;
+        const {id, amount, description} = contents.data.statementItem;
         const monoAmount = this.numberHandler.prepareMonoAmount(amount);
         const isIncome = monoAmount > 0;
         const value = this.numberHandler.prepareValue(monoAmount, isIncome);
         const comment = this.messageHandler.prepareComment(description, value);
 
-        this.budget.setTransaction({comment, value});
+        this.budget.setTransaction({id, comment, value});
     }
 }

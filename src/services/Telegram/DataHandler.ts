@@ -44,7 +44,7 @@ export class DataHandler implements DataHandlerInterface {
     }
 
     private handleMessage(): void {
-        const transaction = this.messageHandler.prepareTransaction(this.data.text, false);
+        const transaction = this.messageHandler.prepareTransaction(this.data.text);
         this.budget.setTransaction(transaction);
         this.telegram.message(this.data.chatId, this.messageGenerator.getMessage(MessageKeys.Expense));
     }

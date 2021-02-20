@@ -38,4 +38,15 @@ export class StringHandler implements StringHandlerInterface {
     compose(strings: string[]): string {
         return strings.join(STRING.EMPTY);
     }
+
+    makeId(length: number): string {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+
+        return result;
+    }
 }

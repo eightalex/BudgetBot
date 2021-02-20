@@ -1,3 +1,4 @@
+import {MONO} from '../../config/mono';
 import {REGEX_DIGITS, REGEX_WORDS} from '../../constants/regex';
 import {DELIMITER} from '../../constants/delimiter';
 import {TransactionType} from '../../types/TransactionType';
@@ -30,7 +31,7 @@ export class MessageHandler implements MessageHandlerInterface {
         return comment;
     }
 
-    prepareTransaction(inputMessage: string, isIncome: boolean): TransactionType {
+    prepareTransaction(inputMessage: string): TransactionType {
         const message = this.stringHandler.removeCommand(inputMessage);
         const valueResult = REGEX_DIGITS.exec(message);
         const commentResult = REGEX_WORDS.exec(message);
@@ -39,10 +40,12 @@ export class MessageHandler implements MessageHandlerInterface {
             throw new HandleError('Error while preparing transaction');
         }
 
-        const value = this.numberHandler.prepareValue(valueResult[0], isIncome);
+        const id = this.stringHandler.makeId(MONO.ID_LENGTH);
+        const value = this.numberHandler.prepareValue(valueResult[0], false);
         const comment = this.prepareComment(commentResult[0], value);
 
         return {
+            id,
             value,
             comment,
         };
@@ -54,6 +57,7 @@ export class MessageHandler implements MessageHandlerInterface {
         const previousValue = this.numberHandler.getValueFromBraces(lastComment as string);
 
         return {
+            id: this.stringHandler.makeId(MONO.ID_LENGTH),
             value: currentValue - previousValue,
             comment: comments.join(DELIMITER.COMMA),
         };

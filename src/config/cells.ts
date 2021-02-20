@@ -1,7 +1,6 @@
-import {CellType} from '../types/Spreadsheet/CellType';
 import {PositionRow} from './positionRow';
 
-export const cells: {[key: string]: CellType} = {
+export const cells = {
     comments: {
         position: {
             row: PositionRow.CurrentDay,
@@ -31,5 +30,11 @@ export const cells: {[key: string]: CellType} = {
             row: Number(process.env.POSITION_ROW_END),
             column: Number(process.env.POSITION_COLUMN_BUDGET),
         },
+    },
+    lastTransaction: {
+        position: {
+            row: Number(process.env.POSITION_ROW_START),
+            column: Number(process.env.POSITION_COLUMN_LAST_TRANSACTION),
+        }
     },
 } as const;
