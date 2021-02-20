@@ -1,4 +1,4 @@
-import {REGEX_NEW_LINE, REGEX_COMMAND} from '~/constants/regex';
+import {REGEX} from '~/constants/regex';
 import {DELIMITER} from '~/constants/delimiter';
 import {STRING} from '~/constants/string';
 import {HandleError} from '~/services/Error';
@@ -6,11 +6,11 @@ import {StringHandlerInterface} from './StringHandlerInterface';
 
 export class StringHandler implements StringHandlerInterface {
     removeCommand(str: string): string {
-        return str.replace(REGEX_COMMAND, STRING.EMPTY);
+        return str.replace(REGEX.COMMAND, STRING.EMPTY);
     }
 
     removeNewLine(str: string): string {
-        return str.replace(REGEX_NEW_LINE, DELIMITER.SPACE);
+        return str.replace(REGEX.NEW_LINE, DELIMITER.SPACE);
     }
 
     capitalize(str: string): string {
@@ -26,7 +26,7 @@ export class StringHandler implements StringHandlerInterface {
      */
     getCommand(str: string): string {
         const INDEX_FIRST = 0;
-        const commands = REGEX_COMMAND.exec(str);
+        const commands = REGEX.COMMAND.exec(str);
 
         if (commands === null || !Boolean(commands[INDEX_FIRST])) {
             throw new HandleError('Get command error');

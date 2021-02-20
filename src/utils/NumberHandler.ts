@@ -1,7 +1,7 @@
 import {STRING} from '~/constants/string';
 import {HandleError} from '~/services/Error';
 import {NumberHandlerInterface} from './NumberHandlerInterface';
-import {REGEX_COMMAS, REGEX_DIGITS_IN_BRACES} from '~/constants/regex';
+import {REGEX} from '~/constants/regex';
 
 export class NumberHandler implements NumberHandlerInterface {
     isFinite(value: any): boolean {
@@ -30,7 +30,7 @@ export class NumberHandler implements NumberHandlerInterface {
 
     prepareValue(value: string | number, makeNegative: boolean = false): number {
         if (typeof value === 'string') {
-            value = value.replace(REGEX_COMMAS, STRING.EMPTY);
+            value = value.replace(REGEX.COMMAS, STRING.EMPTY);
             value = parseFloat(value);
         }
 
@@ -45,7 +45,7 @@ export class NumberHandler implements NumberHandlerInterface {
 
     getValueFromBraces(str: string): number {
         const POSITION_VALUE = 1;
-        const result = REGEX_DIGITS_IN_BRACES.exec(str);
+        const result = REGEX.DIGITS_IN_BRACES.exec(str);
 
         if (result === null) {
             throw new HandleError(`Can't get value from braces`);

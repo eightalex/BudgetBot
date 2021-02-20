@@ -1,5 +1,5 @@
 import {MONO} from '~/config/mono';
-import {REGEX_DIGITS, REGEX_WORDS} from '~/constants/regex';
+import {REGEX} from '~/constants/regex';
 import {DELIMITER} from '~/constants/delimiter';
 import {TransactionType} from '~/types/TransactionType';
 import {NumberHandlerInterface} from '~/utils/NumberHandlerInterface';
@@ -33,8 +33,8 @@ export class MessageHandler implements MessageHandlerInterface {
 
     prepareTransaction(inputMessage: string): TransactionType {
         const message = this.stringHandler.removeCommand(inputMessage);
-        const valueResult = REGEX_DIGITS.exec(message);
-        const commentResult = REGEX_WORDS.exec(message);
+        const valueResult = REGEX.DIGITS.exec(message);
+        const commentResult = REGEX.WORDS.exec(message);
 
         if (valueResult === null || commentResult === null) {
             throw new HandleError('Error while preparing transaction');
