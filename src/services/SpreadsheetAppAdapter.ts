@@ -55,7 +55,7 @@ export class SpreadsheetAppAdapter implements SpreadsheetAppAdapterInterface {
         );
 
         if (position === NOT_FOUND) {
-            throw new SearchError('Row position not found');
+            throw new SearchError('"CurrentDay" row position not found');
         }
 
         return position;
@@ -76,7 +76,7 @@ export class SpreadsheetAppAdapter implements SpreadsheetAppAdapterInterface {
         }
 
         if (position === NOT_FOUND && attempts === 0) {
-            throw new SearchError('Row position not found');
+            throw new SearchError('"EndOfWeek" row position not found');
         }
 
         return position;
