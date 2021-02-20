@@ -75,7 +75,7 @@ export class SpreadsheetAppAdapter implements SpreadsheetAppAdapterInterface {
             weekEnd = this.dateHandler.addDays(weekEnd, -1);
         }
 
-        if (position === NOT_FOUND && attempts === 0) {
+        if (position === NOT_FOUND) {
             throw new SearchError('"EndOfWeek" row position not found');
         }
 
