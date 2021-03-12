@@ -1,6 +1,12 @@
 import {PositionRow} from './positionRow';
 
 export const cells = {
+    mark: {
+        position: {
+            row: PositionRow.CurrentDay,
+            column: Number(process.env.POSITION_COLUMN_MARK),
+        },
+    },
     comments: {
         position: {
             row: PositionRow.CurrentDay,

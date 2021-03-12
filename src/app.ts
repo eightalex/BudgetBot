@@ -1,3 +1,4 @@
+import {Table} from './services/Table';
 import {MessageGenerator} from './services/Message/MessageGenerator/MessageGenerator';
 import {MessageKeys} from './services/Message/MessageGenerator/MessageKeys';
 import {MessagePool} from './services/Message/MessageGenerator/MessagePool';
@@ -37,6 +38,7 @@ const messagePool = new MessagePool();
 const messageGenerator = new MessageGenerator(messagePool);
 const telegramDataHandler = new Telegram.DataHandler(commandFactory, telegram, budget, messageGenerator, messageHandler, stringHandler);
 const requestHandler = new RequestHandler(monoDataHandler, telegramDataHandler, objectHandler);
+const table = new Table(spreadsheetAppAdapter);
 
 const messageHelpers: MessageHelpersType = {
     spreadsheetAppAdapter,
@@ -55,6 +57,10 @@ messagePool
 global.sendNotify = () => {
     telegram.message(process.env.CHAT_ID as string, messageGenerator.getMessage(MessageKeys.Notify));
 };
+
+global.markCurrentDay = () => {
+    table.markCurrentDay();
+}
 
 global.doPost = (event: GoogleAppsScript.Events.DoPost) => {
     requestHandler.handlePost(event.postData.contents);
