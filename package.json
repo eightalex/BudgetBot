@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
-    "watch": "webpack --watch --mode production"
+    "watch": "webpack --watch --mode production",
+    "push": "clasp push"
   },
   "author": "Kuzmenko Alexander",
   "license": "ISC",
