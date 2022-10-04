@@ -3,4 +3,5 @@ export enum Commands {
     Today = '/today',
     Income = '/income',
     Undo = '/undo',
+    ChatId = '/chatid',
 }

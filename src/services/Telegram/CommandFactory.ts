@@ -10,6 +10,7 @@ const commandsMap = new Map<string, CommandConstructorType>()
     .set(CommandType.Today, Commands.Today)
     .set(CommandType.Income, Commands.Income)
     .set(CommandType.Undo, Commands.Undo)
+    .set(CommandType.ChatId, Commands.ChatId)
 
 export class CommandFactory implements CommandFactoryInterface {
     create(commandType: string): CommandInterface {
