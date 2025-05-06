@@ -70,3 +70,7 @@ global.setWebhook = () => {
     telegram.setWebhook();
     mono.setWebhook();
 };
+
+global.doGet = (event: GoogleAppsScript.Events.DoGet) => {
+    return ContentService.createTextOutput('OK');
+}
